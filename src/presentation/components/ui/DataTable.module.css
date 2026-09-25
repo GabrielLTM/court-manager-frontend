@@ -1,0 +1,5 @@
+.scroll { overflow-x: auto; }
+.left { text-align: left; }
+.center { text-align: center; }
+.right { text-align: right; }
+.empty { text-align: center; padding: var(--space-6) var(--space-2) !important; color: var(--color-neutral-700); }

@@ -1,0 +1,4 @@
+.field { display: grid; align-content: start; }
+.message { margin: 6px 0 0; font-size: 12px; line-height: 1.35; }
+.error { color: var(--color-accent-700); }
+.hint { color: var(--color-neutral-700); }

@@ -1,0 +1,4 @@
+.list { display: grid; gap: var(--space-2); margin: 0; font-size: 14px; }
+.row { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; }
+.label { color: var(--color-neutral-700); }
+.value { margin: 0; font-weight: 600; text-align: right; }

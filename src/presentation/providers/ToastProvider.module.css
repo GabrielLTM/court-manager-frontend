@@ -1,0 +1,14 @@
+.viewport {
+  position: fixed; left: 0; right: 0; bottom: 24px; z-index: 50;
+  display: flex; justify-content: center; padding: 0 var(--space-4);
+  pointer-events: none;
+}
+.toast {
+  max-width: min(560px, 100%);
+  background: var(--color-neutral-900); color: var(--color-neutral-100);
+  padding: 12px 22px; border-radius: 999px; box-shadow: var(--shadow-lg);
+  font-size: 14px; line-height: 1.4; text-align: center;
+  animation: riseIn 0.18s ease-out; pointer-events: auto;
+}
+.error { background: var(--color-accent-800); color: var(--color-accent-100); }
+.success { background: var(--color-neutral-900); }

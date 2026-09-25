@@ -1,0 +1,2 @@
+.grid { display: grid; gap: var(--space-3); }
+.row { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: var(--space-3); }

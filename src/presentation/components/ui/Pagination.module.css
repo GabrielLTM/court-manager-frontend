@@ -1,0 +1,2 @@
+.pagination { display: flex; align-items: center; justify-content: flex-end; gap: var(--space-2); flex-wrap: wrap; }
+.info { font-size: 13px; color: var(--color-neutral-700); padding: 0 var(--space-2); }

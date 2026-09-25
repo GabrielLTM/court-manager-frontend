@@ -1,0 +1,25 @@
+/* pillStyle() do protótipo: chips de navegação, datas, durações, métodos de pagamento. */
+.pill {
+  display: inline-flex; align-items: center; justify-content: center; gap: 6px;
+  min-height: 44px; padding: 8px 18px;
+  font-family: var(--font-body); font-weight: 600; font-size: 14px; line-height: 1.2;
+  color: var(--color-text); background: var(--color-surface);
+  border: 1px solid var(--color-divider); border-radius: 999px;
+  cursor: pointer; text-decoration: none; white-space: nowrap;
+  transition: background 0.12s, border-color 0.12s, color 0.12s;
+}
+.plain { background: transparent; }
+.pill:not(.active):not(:disabled):hover {
+  background: color-mix(in srgb, var(--color-text) 7%, var(--color-surface));
+}
+.plain:not(.active):not(:disabled):hover {
+  background: color-mix(in srgb, var(--color-text) 7%, transparent);
+}
+.active {
+  background: var(--color-accent); color: var(--color-bg);
+  border-color: var(--color-accent); box-shadow: var(--shadow-sm);
+}
+.pill:disabled { opacity: 0.45; cursor: not-allowed; }
+.pill:focus-visible { outline: 2px solid var(--color-accent); outline-offset: 2px; }
+.md { min-height: 38px; padding: 6px 16px; font-size: 13px; }
+.sm { min-height: 36px; padding: 6px 14px; font-size: 13px; }

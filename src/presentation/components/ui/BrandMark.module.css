@@ -1,0 +1,11 @@
+.brand { display: flex; align-items: center; gap: 10px; }
+.logo {
+  width: 36px; height: 36px; flex: none; border-radius: 999px;
+  display: grid; place-items: center;
+  background: var(--color-accent); color: var(--color-bg);
+  font-family: var(--font-heading); font-size: 17px;
+}
+.name { font-family: var(--font-heading); font-size: 18px; }
+.lg { gap: 12px; }
+.lg .logo { width: 44px; height: 44px; font-size: 20px; }
+.lg .name { font-size: 20px; }

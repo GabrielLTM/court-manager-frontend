@@ -1,0 +1,8 @@
+.lg { min-height: 44px; }
+.xl { min-height: 48px; }
+.spinner {
+  width: 14px; height: 14px; flex: none; border-radius: 999px;
+  border: 2px solid currentColor; border-right-color: transparent;
+  animation: spin 0.7s linear infinite;
+}
+@keyframes spin { to { transform: rotate(360deg); } }

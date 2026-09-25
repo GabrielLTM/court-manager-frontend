@@ -1,0 +1,9 @@
+.p-sm { padding: var(--space-3); }
+.p-md { padding: var(--space-4); }
+.p-lg { padding: var(--space-6); }
+.g-none { gap: 0; }
+.g-xs { gap: 4px; }
+.g-sm { gap: var(--space-2); }
+.g-md { gap: var(--space-3); }
+.g-lg { gap: var(--space-4); }
+.scroll { overflow-x: auto; }
