@@ -3,7 +3,7 @@ import { cpfValido, emailValido, normalizarEmail, telefoneValido } from '@/domai
 import { isISODate } from '@/shared/lib/date';
 import { maskCpf, maskTelefone } from '@/shared/lib/masks';
 
-export const TAMANHO_MINIMO_SENHA = 6;
+const TAMANHO_MINIMO_SENHA = 6;
 
 export interface DadosCadastraisCliente {
   nome: string;
@@ -29,12 +29,18 @@ export function validarDadosCliente(
     throw new DomainError('VALIDACAO', 'Telefone inválido — informe DDD + número.');
   }
   const nascimento = dados.dataNascimento;
-  if (nascimento && (!isISODate(nascimento) || nascimento > opcoes.hoje || nascimento < '1900-01-01')) {
+  if (
+    nascimento &&
+    (!isISODate(nascimento) || nascimento > opcoes.hoje || nascimento < '1900-01-01')
+  ) {
     throw new DomainError('VALIDACAO', 'Data de nascimento inválida.');
   }
   const senha = dados.senha ?? '';
   if ((opcoes.exigirSenha || senha !== '') && senha.length < TAMANHO_MINIMO_SENHA) {
-    throw new DomainError('VALIDACAO', `A senha deve ter pelo menos ${TAMANHO_MINIMO_SENHA} caracteres.`);
+    throw new DomainError(
+      'VALIDACAO',
+      `A senha deve ter pelo menos ${TAMANHO_MINIMO_SENHA} caracteres.`,
+    );
   }
 }
 

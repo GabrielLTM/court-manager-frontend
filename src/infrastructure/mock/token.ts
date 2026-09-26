@@ -20,7 +20,10 @@ function assinar(conteudo: string): string {
   return codificarBase64Url(hash.toString(16).padStart(8, '0'));
 }
 
-export function criarTokenSimulado(usuario: UsuarioAutenticado, agora: Date): { token: string; expiraEm: string } {
+export function criarTokenSimulado(
+  usuario: UsuarioAutenticado,
+  agora: Date,
+): { token: string; expiraEm: string } {
   const expiraEm = new Date(agora.getTime() + DURACAO_SESSAO_MS);
   const cabecalho = codificarBase64Url(JSON.stringify({ alg: 'HS256', typ: 'JWT' }));
   const claims = codificarBase64Url(
@@ -34,7 +37,10 @@ export function criarTokenSimulado(usuario: UsuarioAutenticado, agora: Date): { 
       exp: Math.floor(expiraEm.getTime() / 1000),
     }),
   );
-  return { token: `${cabecalho}.${claims}.${assinar(`${cabecalho}.${claims}`)}`, expiraEm: expiraEm.toISOString() };
+  return {
+    token: `${cabecalho}.${claims}.${assinar(`${cabecalho}.${claims}`)}`,
+    expiraEm: expiraEm.toISOString(),
+  };
 }
 
 /** Valida assinatura e expiração; devolve null para tokens inválidos, adulterados ou expirados. */
@@ -48,6 +54,7 @@ export function verificarTokenSimulado(token: string, agora: Date): Solicitante 
   const usuarioId = Number(sub);
   if (!Number.isInteger(usuarioId)) return null;
   if (role === Perfil.Administrador) return { usuarioId, perfil: role, clienteId: null };
-  if (role === Perfil.Cliente && typeof clienteId === 'number') return { usuarioId, perfil: role, clienteId };
+  if (role === Perfil.Cliente && typeof clienteId === 'number')
+    return { usuarioId, perfil: role, clienteId };
   return null;
 }

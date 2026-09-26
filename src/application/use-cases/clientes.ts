@@ -5,7 +5,10 @@ import type { AppDependencies } from './dependencies';
 import { normalizarDadosCliente, validarDadosCliente } from './validarDadosCliente';
 
 /** RF01–RF04 — administração de clientes (o backend garante RN01/RN02). */
-export function createClienteService({ clienteRepository, clock }: AppDependencies): ClienteService {
+export function createClienteService({
+  clienteRepository,
+  clock,
+}: AppDependencies): ClienteService {
   const hoje = () => toISODate(clock.now());
   return {
     listar: (filtro) => clienteRepository.listar(filtro),
@@ -28,7 +31,14 @@ export function createClienteService({ clienteRepository, clock }: AppDependenci
         return clienteRepository.obterPorId(id);
       }
       const { nome, cpf, telefone, email, dataNascimento } = await clienteRepository.obterPorId(id);
-      return clienteRepository.atualizar(id, { nome, cpf, telefone, email, dataNascimento, status });
+      return clienteRepository.atualizar(id, {
+        nome,
+        cpf,
+        telefone,
+        email,
+        dataNascimento,
+        status,
+      });
     },
   };
 }

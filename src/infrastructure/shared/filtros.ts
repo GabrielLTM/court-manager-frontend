@@ -7,18 +7,27 @@ import { onlyDigits } from '@/shared/lib/masks';
  * reaplicam sobre a resposta, para funcionar mesmo que a API ainda ignore algum parâmetro.
  */
 
-const semAcentos = (texto: string) => texto.normalize('NFD').replace(/\p{Diacritic}/gu, '').toLowerCase().trim();
+const semAcentos = (texto: string) =>
+  texto
+    .normalize('NFD')
+    .replace(/\p{Diacritic}/gu, '')
+    .toLowerCase()
+    .trim();
 
 /** Busca por nome, e-mail ou CPF (com ou sem máscara). */
-export function clienteCorrespondeABusca(cliente: Cliente, busca: string): boolean {
+function clienteCorrespondeABusca(cliente: Cliente, busca: string): boolean {
   const termo = semAcentos(busca);
   if (!termo) return true;
-  if (semAcentos(cliente.nome).includes(termo) || cliente.email.toLowerCase().includes(termo)) return true;
+  if (semAcentos(cliente.nome).includes(termo) || cliente.email.toLowerCase().includes(termo))
+    return true;
   const digitos = onlyDigits(busca);
   return digitos.length > 0 && onlyDigits(cliente.cpf).includes(digitos);
 }
 
-export function filtrarClientes(clientes: readonly Cliente[], filtro: ClienteFiltro = {}): Cliente[] {
+export function filtrarClientes(
+  clientes: readonly Cliente[],
+  filtro: ClienteFiltro = {},
+): Cliente[] {
   return clientes.filter(
     (c) =>
       (filtro.status === undefined || c.status === filtro.status) &&
@@ -26,7 +35,10 @@ export function filtrarClientes(clientes: readonly Cliente[], filtro: ClienteFil
   );
 }
 
-export function filtrarReservas(reservas: readonly Reserva[], filtro: ReservaFiltro = {}): Reserva[] {
+export function filtrarReservas(
+  reservas: readonly Reserva[],
+  filtro: ReservaFiltro = {},
+): Reserva[] {
   return reservas.filter(
     (r) =>
       (filtro.clienteId === undefined || r.clienteId === filtro.clienteId) &&

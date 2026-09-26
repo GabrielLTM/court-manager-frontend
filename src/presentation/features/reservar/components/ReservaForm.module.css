@@ -1,0 +1,5 @@
+.layout {
+  display: grid; gap: var(--space-6); align-items: start;
+  grid-template-columns: repeat(auto-fit, minmax(min(300px, 100%), 1fr));
+}
+.etapas { display: grid; gap: var(--space-6); min-width: 0; }

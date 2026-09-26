@@ -7,7 +7,11 @@ import { exigirClienteLogado } from './sessao';
 import { normalizarDadosCliente, validarDadosCliente } from './validarDadosCliente';
 
 /** RF02 — o cliente logado consulta e atualiza os próprios dados. */
-export function createPerfilService({ clienteRepository, sessionStore, clock }: AppDependencies): PerfilService {
+export function createPerfilService({
+  clienteRepository,
+  sessionStore,
+  clock,
+}: AppDependencies): PerfilService {
   return {
     obter: async () => {
       const { clienteId } = exigirClienteLogado(sessionStore);
@@ -34,5 +38,8 @@ function sincronizarSessao(sessionStore: SessionStore, cliente: Cliente): void {
   const sessao = sessionStore.get();
   if (!sessao || sessao.usuario.clienteId !== cliente.id) return;
   if (sessao.usuario.nome === cliente.nome && sessao.usuario.email === cliente.email) return;
-  sessionStore.set({ ...sessao, usuario: { ...sessao.usuario, nome: cliente.nome, email: cliente.email } });
+  sessionStore.set({
+    ...sessao,
+    usuario: { ...sessao.usuario, nome: cliente.nome, email: cliente.email },
+  });
 }

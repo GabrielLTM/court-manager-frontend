@@ -27,7 +27,11 @@ export function lerItem(armazenamento: Armazenamento | null, chave: string): str
 }
 
 /** Devolve false se não foi possível gravar (cota excedida, storage bloqueado...). */
-export function gravarItem(armazenamento: Armazenamento | null, chave: string, valor: string): boolean {
+export function gravarItem(
+  armazenamento: Armazenamento | null,
+  chave: string,
+  valor: string,
+): boolean {
   if (!armazenamento) return false;
   try {
     armazenamento.setItem(chave, valor);

@@ -1,0 +1,133 @@
+/* Casca autenticada — protótipo, linhas 404–437. */
+.shell {
+  max-width: 1220px;
+  margin: 0 auto;
+  padding: var(--space-4) var(--space-6) var(--space-8);
+}
+
+.skipLink {
+  position: absolute;
+  top: var(--space-2);
+  left: var(--space-4);
+  z-index: 60;
+  padding: 8px 16px;
+  border-radius: 999px;
+  background: var(--color-neutral-900);
+  color: var(--color-neutral-100);
+  font-size: 14px;
+  font-weight: 600;
+  text-decoration: none;
+  transform: translateY(calc(-100% - var(--space-4)));
+}
+.skipLink:focus,
+.skipLink:hover {
+  color: var(--color-neutral-100);
+}
+.skipLink:focus {
+  transform: none;
+}
+
+/* — cabeçalho — */
+.header {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+  flex-wrap: wrap;
+  padding: var(--space-3) 0 var(--space-4);
+}
+.brandLink {
+  margin-right: auto;
+  border-radius: 999px;
+  color: var(--color-text);
+  text-decoration: none;
+}
+.brandLink:hover {
+  color: var(--color-text);
+}
+.controls {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  flex-wrap: wrap;
+}
+
+.user {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+}
+.userText {
+  display: grid;
+  min-width: 0;
+  font-size: 13px;
+  line-height: 1.2;
+}
+.userName {
+  max-width: 24ch;
+  overflow: hidden;
+  font-weight: 600;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.userRole {
+  color: var(--color-neutral-700);
+  font-size: 11px;
+}
+
+/* — navegação — */
+.nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  padding-bottom: var(--space-6);
+}
+
+.main:focus {
+  outline: none;
+}
+
+/* Celular: marca + "Sair" na primeira linha; usuário + troca de perfil na segunda. */
+@media (max-width: 600px) {
+  .shell {
+    padding: var(--space-3) var(--space-4) var(--space-8);
+  }
+  .header {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    grid-template-areas:
+      'brand logout'
+      'user switch';
+    gap: var(--space-3);
+  }
+  .controls {
+    display: contents;
+  }
+  .brandLink {
+    grid-area: brand;
+    justify-self: start;
+    margin-right: 0;
+    white-space: nowrap;
+  }
+  .user {
+    grid-area: user;
+  }
+  .roleSwitch {
+    grid-area: switch;
+    justify-self: end;
+  }
+  .logout {
+    grid-area: logout;
+    justify-self: end;
+  }
+  .nav {
+    padding-bottom: var(--space-4);
+  }
+}
+
+/* Telefones estreitos: o nome da arena cabe na mesma linha do "Sair". */
+@media (max-width: 420px) {
+  .brandLink span:last-child {
+    font-size: 16px;
+  }
+}

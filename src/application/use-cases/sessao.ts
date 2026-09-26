@@ -6,7 +6,8 @@ import { Perfil } from '@/domain/enums';
 
 export function exigirSessao(sessionStore: SessionStore): Sessao {
   const sessao = sessionStore.get();
-  if (!sessao) throw new AppError(MENSAGENS.sessaoExpirada, { code: 'NAO_AUTENTICADO', status: 401 });
+  if (!sessao)
+    throw new AppError(MENSAGENS.sessaoExpirada, { code: 'NAO_AUTENTICADO', status: 401 });
   return sessao;
 }
 
@@ -27,7 +28,10 @@ export function clienteRestrito(sessao: Sessao | null): number | undefined {
 }
 
 /** Exige um usuário logado com perfil Cliente (área "Meus dados"). */
-export function exigirClienteLogado(sessionStore: SessionStore): { sessao: Sessao; clienteId: number } {
+export function exigirClienteLogado(sessionStore: SessionStore): {
+  sessao: Sessao;
+  clienteId: number;
+} {
   const sessao = exigirSessao(sessionStore);
   const clienteId = clienteRestrito(sessao);
   if (clienteId === undefined) {

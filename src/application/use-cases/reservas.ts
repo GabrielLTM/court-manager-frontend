@@ -10,11 +10,22 @@ import { statusDaReservaAposPagamento } from '@/domain/rules';
 import type { AppDependencies } from './dependencies';
 import { carregarFontesDeDetalhe, compararPorAgenda, criarDetalhador } from './detalharReservas';
 import { clienteRestrito, exigirSessao } from './sessao';
-import { preValidarReserva, verificarAlteracaoPermitida, verificarCancelamentoPermitido } from './validacaoReserva';
+import {
+  preValidarReserva,
+  verificarAlteracaoPermitida,
+  verificarCancelamentoPermitido,
+} from './validacaoReserva';
 
 /** RF09–RF14 — consulta, criação (com pagamento), alteração e cancelamento de reservas. */
 export function createReservaService(deps: AppDependencies): ReservaService {
-  const { reservaRepository, pagamentoRepository, quadraRepository, clienteRepository, sessionStore, clock } = deps;
+  const {
+    reservaRepository,
+    pagamentoRepository,
+    quadraRepository,
+    clienteRepository,
+    sessionStore,
+    clock,
+  } = deps;
 
   return {
     listar: async (filtro = {}) => {
@@ -33,7 +44,9 @@ export function createReservaService(deps: AppDependencies): ReservaService {
       const clienteId = clienteRestrito(sessao);
       const [reserva, pagamentos] = await Promise.all([
         reservaRepository.obterPorId(id),
-        pagamentoRepository.listar(clienteId === undefined ? { reservaId: id } : { reservaId: id, clienteId }),
+        pagamentoRepository.listar(
+          clienteId === undefined ? { reservaId: id } : { reservaId: id, clienteId },
+        ),
       ]);
       const [quadra, cliente] = await Promise.all([
         quadraRepository.obterPorId(reserva.quadraId),
@@ -59,7 +72,11 @@ export function createReservaService(deps: AppDependencies): ReservaService {
         horaInicio: input.horaInicio,
         horaFim,
       });
-      const pagamento = await registrarPagamento(pagamentoRepository, reserva.id, input.metodoPagamento);
+      const pagamento = await registrarPagamento(
+        pagamentoRepository,
+        reserva.id,
+        input.metodoPagamento,
+      );
       // Com o pagamento registrado a reserva passa a Confirmada; se a releitura falhar, a reserva
       // já existe — refletimos o novo status localmente em vez de acusar erro.
       const atualizada = await reservaRepository

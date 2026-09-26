@@ -1,0 +1,6 @@
+.codigo { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 12px; white-space: nowrap; }
+.valor { font-weight: 600; white-space: nowrap; }
+
+/* acaoStyle do protótipo: botão compacto da coluna de ações. */
+.acao:global(.btn) { min-height: 34px; padding: 5px 14px; font-size: 13px; white-space: nowrap; }
+.recibo:global(.btn) { color: var(--color-neutral-700); }

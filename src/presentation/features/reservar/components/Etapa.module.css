@@ -1,0 +1,8 @@
+.etapa { min-width: 0; }
+.cabecalho {
+  display: flex; align-items: baseline; gap: var(--space-3); flex-wrap: wrap;
+  margin-bottom: var(--space-3);
+}
+/* Visual do h4 do design system (20px); h2 mantém a hierarquia de títulos da página. */
+.titulo { margin: 0; font-size: 20px; }
+.complemento { font-size: 12px; color: var(--color-neutral-700); }

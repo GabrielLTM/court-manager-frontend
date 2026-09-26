@@ -7,7 +7,7 @@ export function codificarBase64Url(texto: string): string {
   return btoa(binario).replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
 }
 
-export function decodificarBase64Url(valor: string): string {
+function decodificarBase64Url(valor: string): string {
   const base64 = valor.replace(/-/g, '+').replace(/_/g, '/');
   const binario = atob(base64 + '='.repeat((4 - (base64.length % 4)) % 4));
   return new TextDecoder().decode(Uint8Array.from(binario, (c) => c.charCodeAt(0)));

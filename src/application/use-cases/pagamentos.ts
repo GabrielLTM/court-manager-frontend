@@ -10,7 +10,13 @@ import { clienteRestrito } from './sessao';
 
 /** RF14–RF16 — pagamentos simulados (registro, confirmação e consulta). */
 export function createPagamentoService(deps: AppDependencies): PagamentoService {
-  const { pagamentoRepository, reservaRepository, quadraRepository, clienteRepository, sessionStore } = deps;
+  const {
+    pagamentoRepository,
+    reservaRepository,
+    quadraRepository,
+    clienteRepository,
+    sessionStore,
+  } = deps;
 
   return {
     listar: async (filtro = {}) => {
@@ -42,7 +48,8 @@ export function createPagamentoService(deps: AppDependencies): PagamentoService 
     registrar: (input) => pagamentoRepository.registrar(input),
     confirmar: async (id) => {
       const pagamento = await pagamentoRepository.obterPorId(id);
-      if (!pagamentoPodeSerConfirmado(pagamento)) throw new DomainError('VALIDACAO', MENSAGENS.pagamentoNaoPendente);
+      if (!pagamentoPodeSerConfirmado(pagamento))
+        throw new DomainError('VALIDACAO', MENSAGENS.pagamentoNaoPendente);
       return pagamentoRepository.confirmar(id);
     },
   };

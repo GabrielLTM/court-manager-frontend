@@ -3,7 +3,13 @@ import type { Sessao } from '@/domain/entities';
 import { Perfil } from '@/domain/enums';
 import { systemClock } from '@/infrastructure/clock/SystemClock';
 import { ehRegistro } from '@/infrastructure/shared/registro';
-import { type Armazenamento, gravarItem, lerItem, obterLocalStorage, removerItem } from './armazenamento';
+import {
+  type Armazenamento,
+  gravarItem,
+  lerItem,
+  obterLocalStorage,
+  removerItem,
+} from './armazenamento';
 
 export const CHAVE_SESSAO = 'arena.sessao';
 
@@ -117,12 +123,23 @@ function normalizarSessao(valor: unknown): Sessao | null {
   const usuario = valor.usuario;
   if (!ehRegistro(usuario)) return null;
   const { id, nome, email, perfil, clienteId } = usuario;
-  if (typeof id !== 'number' || typeof nome !== 'string' || typeof email !== 'string' || !ehPerfil(perfil)) {
+  if (
+    typeof id !== 'number' ||
+    typeof nome !== 'string' ||
+    typeof email !== 'string' ||
+    !ehPerfil(perfil)
+  ) {
     return null;
   }
   return {
     token: valor.token,
     expiraEm: typeof valor.expiraEm === 'string' ? valor.expiraEm : null,
-    usuario: { id, nome, email, perfil, clienteId: typeof clienteId === 'number' ? clienteId : null },
+    usuario: {
+      id,
+      nome,
+      email,
+      perfil,
+      clienteId: typeof clienteId === 'number' ? clienteId : null,
+    },
   };
 }

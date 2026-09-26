@@ -1,0 +1,5 @@
+.conteudo { display: grid; gap: var(--space-6); }
+.nota { margin: 0; font-size: 12px; color: var(--color-neutral-700); }
+/* Link com aparência de .btn-primary: mantém o texto claro sobre o laranja (o a:hover global troca a cor). */
+.linkBotao { min-height: 44px; }
+.linkBotao:hover, .linkBotao:focus-visible { color: var(--color-bg); }

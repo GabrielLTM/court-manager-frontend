@@ -1,0 +1,7 @@
+.resumo { position: sticky; top: var(--space-4); }
+.quadra { margin: 0; }
+.divisor { margin: 0; }
+.total { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; }
+.totalRotulo { font-size: 13px; color: var(--color-neutral-700); }
+.totalValor { font-family: var(--font-heading); font-size: 32px; }
+.nota { margin: 0; font-size: 11px; color: var(--color-neutral-700); }

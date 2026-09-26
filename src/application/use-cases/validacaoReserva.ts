@@ -42,7 +42,11 @@ export async function preValidarReserva(
 }
 
 /** RF12 / RN08 — lança DomainError com o motivo quando o perfil não pode cancelar a reserva. */
-export function verificarCancelamentoPermitido(reserva: Reserva, agora: Date, perfil: Perfil): void {
+export function verificarCancelamentoPermitido(
+  reserva: Reserva,
+  agora: Date,
+  perfil: Perfil,
+): void {
   const permissao = podeCancelarReserva(reserva, agora, perfil);
   if (!permissao.permitido) {
     throw new DomainError('RN08', permissao.motivo ?? 'Esta reserva não pode ser cancelada.');
@@ -53,22 +57,33 @@ export function verificarCancelamentoPermitido(reserva: Reserva, agora: Date, pe
 export function verificarAlteracaoPermitida(reserva: Reserva, agora: Date, perfil: Perfil): void {
   const permissao = podeCancelarReserva(reserva, agora, perfil);
   if (!permissao.permitido) {
-    throw new DomainError('RN08', `Esta reserva não pode ser alterada. ${permissao.motivo ?? ''}`.trim());
+    throw new DomainError(
+      'RN08',
+      `Esta reserva não pode ser alterada. ${permissao.motivo ?? ''}`.trim(),
+    );
   }
 }
 
-function removerIntervalo(ocupados: readonly Intervalo[], alvo: Intervalo | undefined): Intervalo[] {
+function removerIntervalo(
+  ocupados: readonly Intervalo[],
+  alvo: Intervalo | undefined,
+): Intervalo[] {
   const lista = [...ocupados];
   if (!alvo) return lista;
   const indice = lista.findIndex(
-    (o) => normalizeTime(o.inicio) === normalizeTime(alvo.inicio) && normalizeTime(o.fim) === normalizeTime(alvo.fim),
+    (o) =>
+      normalizeTime(o.inicio) === normalizeTime(alvo.inicio) &&
+      normalizeTime(o.fim) === normalizeTime(alvo.fim),
   );
   if (indice >= 0) lista.splice(indice, 1);
   return lista;
 }
 
 /** Adapta os intervalos ocupados ao formato aceito por `validarReserva` (ids negativos: não reais). */
-function comoReservas(ocupados: readonly Intervalo[], alvo: Pick<Reserva, 'quadraId' | 'data'>): Reserva[] {
+function comoReservas(
+  ocupados: readonly Intervalo[],
+  alvo: Pick<Reserva, 'quadraId' | 'data'>,
+): Reserva[] {
   return ocupados.map((intervalo, indice) => ({
     id: -(indice + 1),
     clienteId: 0,

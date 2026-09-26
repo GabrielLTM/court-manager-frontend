@@ -39,8 +39,13 @@ export function ehAdministrador(solicitante: Solicitante): boolean {
 }
 
 /** O cliente só acessa os próprios registros; o administrador acessa todos. */
-export function exigirAcessoAoCliente(solicitante: Solicitante, clienteId: number, mensagem?: string): void {
-  if (!ehAdministrador(solicitante) && solicitante.clienteId !== clienteId) throw acessoNegado(mensagem);
+export function exigirAcessoAoCliente(
+  solicitante: Solicitante,
+  clienteId: number,
+  mensagem?: string,
+): void {
+  if (!ehAdministrador(solicitante) && solicitante.clienteId !== clienteId)
+    throw acessoNegado(mensagem);
 }
 
 /**
@@ -53,6 +58,7 @@ export function restringirAoCliente<F extends { clienteId?: number }>(
   mensagem: string,
 ): F {
   if (ehAdministrador(solicitante)) return filtro;
-  if (filtro.clienteId === undefined || filtro.clienteId !== solicitante.clienteId) throw acessoNegado(mensagem);
+  if (filtro.clienteId === undefined || filtro.clienteId !== solicitante.clienteId)
+    throw acessoNegado(mensagem);
   return filtro;
 }

@@ -25,7 +25,8 @@ export function createQuadraService({ quadraRepository }: AppDependencies): Quad
       const { nome, tipo, valorHora } = await quadraRepository.obterPorId(id);
       return quadraRepository.atualizar(id, { nome, tipo, valorHora, status });
     },
-    consultarDisponibilidade: (quadraId, data) => quadraRepository.consultarDisponibilidade(quadraId, data),
+    consultarDisponibilidade: (quadraId, data) =>
+      quadraRepository.consultarDisponibilidade(quadraId, data),
   };
 }
 

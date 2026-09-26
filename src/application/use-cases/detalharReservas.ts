@@ -51,13 +51,16 @@ export function criarDetalhador(fontes: FontesDeDetalhe): (reserva: Reserva) => 
  * RN10 — no máximo um pagamento ativo (Pendente/Pago) por reserva. Se houver histórico
  * (cancelados/estornados), prevalece o ativo; entre iguais, o mais recente.
  */
-export function indexarPagamentoPorReserva(pagamentos: readonly Pagamento[]): Map<number, Pagamento> {
-  const ativo = (p: Pagamento) => p.status === StatusPagamento.Pendente || p.status === StatusPagamento.Pago;
+function indexarPagamentoPorReserva(pagamentos: readonly Pagamento[]): Map<number, Pagamento> {
+  const ativo = (p: Pagamento) =>
+    p.status === StatusPagamento.Pendente || p.status === StatusPagamento.Pago;
   const indice = new Map<number, Pagamento>();
   for (const pagamento of pagamentos) {
     const atual = indice.get(pagamento.reservaId);
     const prevalece =
-      !atual || (ativo(pagamento) && !ativo(atual)) || (ativo(pagamento) === ativo(atual) && pagamento.id > atual.id);
+      !atual ||
+      (ativo(pagamento) && !ativo(atual)) ||
+      (ativo(pagamento) === ativo(atual) && pagamento.id > atual.id);
     if (prevalece) indice.set(pagamento.reservaId, pagamento);
   }
   return indice;
@@ -65,7 +68,9 @@ export function indexarPagamentoPorReserva(pagamentos: readonly Pagamento[]): Ma
 
 /** Ordena por data e horário de início (crescente). */
 export function compararPorAgenda(a: Reserva, b: Reserva): number {
-  return a.data.localeCompare(b.data) || toMinutes(a.horaInicio) - toMinutes(b.horaInicio) || a.id - b.id;
+  return (
+    a.data.localeCompare(b.data) || toMinutes(a.horaInicio) - toMinutes(b.horaInicio) || a.id - b.id
+  );
 }
 
 /** Mais recentes primeiro (data de criação), com desempate pelo id. */

@@ -1,0 +1,2 @@
+/* minmax(0, 1fr): a tabela rola dentro do cartão em vez de alargar a página. */
+.page { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--space-4); }

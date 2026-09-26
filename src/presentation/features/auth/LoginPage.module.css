@@ -1,0 +1,77 @@
+/* Tela de acesso — protótipo, linhas 353–402. */
+.page {
+  min-height: 100vh;
+  min-height: 100dvh;
+  max-width: 1180px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(320px, 100%), 1fr));
+  align-items: center;
+  gap: var(--space-8);
+  padding: var(--space-8) var(--space-6);
+}
+
+/* — apresentação — */
+.hero {
+  max-width: 460px;
+}
+.brand {
+  margin-bottom: var(--space-6);
+}
+.title {
+  margin-bottom: var(--space-4);
+  font-size: 52px;
+  text-wrap: pretty;
+}
+.lead {
+  max-width: 38ch;
+  font-size: 17px;
+  color: var(--color-neutral-800);
+}
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  margin-top: var(--space-6);
+}
+
+/* — card de acesso — */
+.card {
+  width: 100%;
+  max-width: 420px;
+  justify-self: end;
+}
+.tabs {
+  align-self: flex-start;
+}
+.cardTitle {
+  margin: 0;
+  font-size: 25px; /* h3 do design system */
+}
+
+/* Uma coluna: o card ocupa toda a largura. */
+@media (max-width: 767px) {
+  .hero {
+    max-width: none;
+  }
+  .card {
+    max-width: none;
+    justify-self: stretch;
+  }
+}
+
+@media (max-width: 480px) {
+  .page {
+    gap: var(--space-6);
+    padding: var(--space-6) var(--space-4);
+  }
+  .brand {
+    margin-bottom: var(--space-4);
+  }
+  .title {
+    font-size: 40px;
+  }
+  .lead {
+    font-size: 16px;
+  }
+}

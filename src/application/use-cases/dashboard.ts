@@ -42,7 +42,10 @@ export function createDashboardService(deps: AppDependencies): DashboardService 
         quadrasAtivas: quadras.filter(quadraPodeSerReservada).length,
         reservasNoDia: reservasDoDia.length,
         valorRecebidoNoDia: Math.round(recebido * 100) / 100,
-        reservasRecentes: [...reservas].sort(compararPorCriacaoDesc).slice(0, QUANTIDADE_RECENTES).map(detalhar),
+        reservasRecentes: [...reservas]
+          .sort(compararPorCriacaoDesc)
+          .slice(0, QUANTIDADE_RECENTES)
+          .map(detalhar),
         ocupacao: quadras.map((quadra) => calcularOcupacao(quadra, reservasDoDia)),
       };
     },

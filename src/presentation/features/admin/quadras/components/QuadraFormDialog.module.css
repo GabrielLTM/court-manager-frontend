@@ -1,0 +1,5 @@
+.form { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--space-3); }
+.row {
+  display: grid; gap: var(--space-3);
+  grid-template-columns: repeat(auto-fit, minmax(min(150px, 100%), 1fr));
+}

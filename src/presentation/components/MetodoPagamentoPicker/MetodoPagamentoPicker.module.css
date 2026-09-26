@@ -1,0 +1,4 @@
+.metodo { margin-top: var(--space-4); }
+.rotulo { font-size: 12px; color: var(--color-neutral-700); margin-bottom: 6px; }
+.opcoes { display: flex; gap: var(--space-2); flex-wrap: wrap; }
+.ajuda { margin: var(--space-2) 0 0; font-size: 12px; color: var(--color-neutral-700); }

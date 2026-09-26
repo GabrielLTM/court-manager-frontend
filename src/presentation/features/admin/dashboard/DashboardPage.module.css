@@ -1,0 +1,10 @@
+/* minmax(0, 1fr): o conteúdo largo (tabelas) rola dentro do cartão em vez de alargar a página. */
+.page { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--space-6); }
+.stats {
+  display: grid; gap: var(--space-3);
+  grid-template-columns: repeat(auto-fit, minmax(min(200px, 100%), 1fr));
+}
+.columns {
+  display: grid; gap: var(--space-6); align-items: start;
+  grid-template-columns: repeat(auto-fit, minmax(min(300px, 100%), 1fr));
+}

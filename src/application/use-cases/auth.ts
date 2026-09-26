@@ -4,7 +4,11 @@ import type { AppDependencies } from './dependencies';
 import { normalizarDadosCliente, validarDadosCliente } from './validarDadosCliente';
 
 /** Autenticação (Sprint 5 — JWT): o gateway emite a sessão e o SessionStore a mantém. */
-export function createAuthService({ authGateway, sessionStore, clock }: AppDependencies): AuthService {
+export function createAuthService({
+  authGateway,
+  sessionStore,
+  clock,
+}: AppDependencies): AuthService {
   return {
     login: async (input) => {
       const sessao = await authGateway.login({ email: input.email.trim(), senha: input.senha });

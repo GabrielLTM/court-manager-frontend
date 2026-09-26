@@ -3,7 +3,8 @@
 /* Ajustes globais do protótipo */
 body { margin: 0; }
 a { color: var(--color-accent-700); }
-a:hover { color: var(--color-accent); }
+/* :where() mantém a especificidade de elemento — classes (.pill, .btn) sempre vencem. */
+a:where(:hover) { color: var(--color-accent); }
 #root { min-height: 100vh; }
 
 @keyframes riseIn {

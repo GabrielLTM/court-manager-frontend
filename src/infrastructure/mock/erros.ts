@@ -9,7 +9,8 @@ export const naoAutenticado = (mensagem: string = MENSAGENS.sessaoExpirada) =>
 export const acessoNegado = (mensagem: string = MENSAGENS.acessoNegado) =>
   new AppError(mensagem, { code: 'ACESSO_NEGADO', status: 403 });
 
-export const naoEncontrado = (mensagem: string) => new AppError(mensagem, { code: 'NAO_ENCONTRADO', status: 404 });
+export const naoEncontrado = (mensagem: string) =>
+  new AppError(mensagem, { code: 'NAO_ENCONTRADO', status: 404 });
 
 export const conflito = (mensagem: string, fieldErrors?: Record<string, string[]>) =>
   new AppError(mensagem, { code: 'CONFLITO', status: 409, fieldErrors });
