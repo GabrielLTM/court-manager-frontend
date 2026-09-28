@@ -48,7 +48,6 @@ export default function LoginPage({ modo }: LoginPageProps) {
         <div className={styles.tags}>
           <Tag tone="accent-2">6 quadras</Tag>
           <Tag tone="accent-2">07h às 22h</Tag>
-          <Tag tone="neutral">MVP — Sprint 1 a 6</Tag>
         </div>
       </section>
 

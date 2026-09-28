@@ -3,7 +3,6 @@
   margin-bottom: var(--space-6);
 }
 .title { margin: 0; font-size: 36px; }
-.route { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; }
 .actions { margin-left: auto; display: flex; align-items: center; gap: var(--space-2); flex-wrap: wrap; }
 @media (max-width: 600px) {
   .title { font-size: 28px; }

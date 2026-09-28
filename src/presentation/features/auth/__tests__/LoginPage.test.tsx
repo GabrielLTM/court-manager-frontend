@@ -35,11 +35,12 @@ describe('LoginPage — Entrar', () => {
         name: 'Sua quadra, reservada em três toques.',
       }),
     ).toBeInTheDocument();
-    for (const tag of ['6 quadras', '07h às 22h', 'MVP — Sprint 1 a 6']) {
+    for (const tag of ['6 quadras', '07h às 22h']) {
       expect(screen.getByText(tag)).toBeInTheDocument();
     }
     expect(screen.getByRole('radio', { name: 'Entrar' })).toHaveAttribute('aria-checked', 'true');
-    expect(screen.getByText('POST /api/auth/login')).toBeInTheDocument();
+    expect(screen.getByText('by Ottawa Tech')).toBeInTheDocument();
+    expect(screen.queryByText(/POST \/api/)).not.toBeInTheDocument();
   });
 
   it('valida os campos obrigatórios sem chamar a API', async () => {
@@ -70,7 +71,7 @@ describe('LoginPage — Entrar', () => {
     const { services } = createFakeServices();
     const { user, router } = renderAppAt('/login', services);
 
-    const acesso = await screen.findByRole('group', { name: 'Acesso rápido (demonstração)' });
+    const acesso = await screen.findByRole('group', { name: 'Acessar como' });
     const admin = within(acesso).getByRole('button', { name: 'Administrador' });
     expect(admin).toHaveAttribute('aria-pressed', 'false');
 
@@ -114,8 +115,8 @@ describe('LoginPage — Criar conta', () => {
     ]) {
       expect(form.getByLabelText(campo)).toBeInTheDocument();
     }
-    expect(form.queryByText('Acesso rápido (demonstração)')).not.toBeInTheDocument();
-    expect(form.getByText('POST /api/auth/register')).toBeInTheDocument();
+    expect(form.queryByText('Acessar como')).not.toBeInTheDocument();
+    expect(form.queryByText(/POST \/api/)).not.toBeInTheDocument();
   });
 
   it('cadastra, entra e vai para a home do cliente', async () => {

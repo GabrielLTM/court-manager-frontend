@@ -24,7 +24,7 @@ export function AcessoRapido({ control, onEscolher }: AcessoRapidoProps) {
   return (
     <div role="group" aria-labelledby={tituloId}>
       <div id={tituloId} className={styles.quickLabel}>
-        Acesso rápido (demonstração)
+        Acessar como
       </div>
       <div className={styles.quickPills}>
         {PERFIS_DEMO.map((perfil) => {

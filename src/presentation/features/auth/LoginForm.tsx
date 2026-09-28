@@ -75,7 +75,6 @@ export function LoginForm() {
       <Button type="submit" variant="primary" size="lg" block loading={isSubmitting}>
         Entrar
       </Button>
-      <p className={styles.endpoint}>POST /api/auth/login</p>
     </form>
   );
 }

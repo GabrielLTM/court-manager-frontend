@@ -3,7 +3,6 @@ import type { Cliente } from '@/domain/entities';
 import { AsyncContent, Button, Card, PageHeader, Pagination } from '@/presentation/components/ui';
 import { usePagination } from '@/presentation/hooks/usePagination';
 import { useClientes, useReservas } from '@/presentation/queries';
-import { ROUTES } from '@/presentation/routes/paths';
 import { contarReservasPorCliente, filtrarClientes, type FiltroStatusCliente } from './clientes.utils';
 import { ClienteFormDialog } from './components/ClienteFormDialog';
 import { ClientesTabela } from './components/ClientesTabela';
@@ -41,7 +40,6 @@ export default function ClientesPage() {
     <>
       <PageHeader
         title="Clientes"
-        route={ROUTES.admin.clientes}
         actions={
           <Button variant="primary" onClick={() => setEmEdicao(null)}>
             + Novo cliente

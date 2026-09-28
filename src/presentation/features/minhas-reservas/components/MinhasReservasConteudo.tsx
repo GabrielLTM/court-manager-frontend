@@ -42,8 +42,8 @@ export function MinhasReservasConteudo({ reservas }: { reservas: readonly Reserv
       </Card>
 
       <p className={styles.nota}>
-        RN08 — o cancelamento é permitido até {REGRAS_RESERVA.antecedenciaCancelamentoHoras} horas antes do horário
-        da reserva.
+        Você pode cancelar sua reserva até {REGRAS_RESERVA.antecedenciaCancelamentoHoras} horas antes do horário
+        marcado.
       </p>
 
       {cancelando && (

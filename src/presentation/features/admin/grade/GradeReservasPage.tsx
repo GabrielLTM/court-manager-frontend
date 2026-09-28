@@ -8,7 +8,6 @@ import { useHoje } from '@/presentation/hooks/useHoje';
 import { getErrorMessage } from '@/presentation/lib/errors';
 import { useToast } from '@/presentation/providers/ToastContext';
 import { useQuadras, useReservas } from '@/presentation/queries';
-import { ROUTES } from '@/presentation/routes/paths';
 import { addDays, diaDaSemanaCurto, formatDataLonga } from '@/shared/lib/date';
 import { AlterarReservaDialog } from './components/AlterarReservaDialog';
 import { GradeLegenda } from './components/GradeLegenda';
@@ -73,7 +72,7 @@ export default function GradeReservasPage() {
 
   return (
     <>
-      <PageHeader title="Grade de reservas" route={ROUTES.admin.reservas} />
+      <PageHeader title="Grade de reservas" />
       <div className={styles.page}>
         <DateSelector
           value={data}

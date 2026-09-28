@@ -1,9 +1,14 @@
 import type { NovaReservaInput } from '@/application/dto';
 import type { Quadra, Reserva, Slot } from '@/domain/entities';
-import { MetodoPagamento } from '@/domain/enums';
+import { MetodoPagamento, StatusQuadra } from '@/domain/enums';
 import { REGRAS_RESERVA, calcularHoraFim, calcularValorReserva, quadraPodeSerReservada } from '@/domain/rules';
 import { formatDataLonga } from '@/shared/lib/date';
 import { formatBRL, formatCodigoReserva, formatDuracao } from '@/shared/lib/format';
+
+/** Aviso ao tocar em uma quadra que não aceita reservas (RN03), no tom do design v2. */
+export function avisoQuadraIndisponivel(quadra: Pick<Quadra, 'status'>): string {
+  return `Esta quadra está ${quadra.status === StatusQuadra.Manutencao ? 'em manutenção' : 'indisponível'} no momento`;
+}
 
 /** Linha chave/valor exibida no resumo e no diálogo de confirmação. */
 export interface LinhaDetalhe {

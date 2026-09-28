@@ -4,7 +4,6 @@ import { AsyncContent, Card, PageHeader, Pagination } from '@/presentation/compo
 import { FiltroPills } from '@/presentation/features/admin/shared/FiltroPills';
 import { usePagination } from '@/presentation/hooks/usePagination';
 import { usePagamentos } from '@/presentation/queries';
-import { ROUTES } from '@/presentation/routes/paths';
 import { PagamentosResumo } from './components/PagamentosResumo';
 import { PagamentosTabela } from './components/PagamentosTabela';
 import { ReciboDialog } from './components/ReciboDialog';
@@ -31,7 +30,7 @@ export default function PagamentosPage() {
 
   return (
     <>
-      <PageHeader title="Pagamentos" route={ROUTES.admin.pagamentos} />
+      <PageHeader title="Pagamentos" />
       <AsyncContent query={pagamentosQuery} loadingLabel="Carregando pagamentos…">
         {() => (
           <div className={styles.page}>

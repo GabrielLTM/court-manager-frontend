@@ -55,7 +55,6 @@ export function CadastroForm() {
         <Button type="submit" variant="primary" size="lg" block loading={isSubmitting}>
           Criar conta e entrar
         </Button>
-        <p className={styles.endpoint}>POST /api/auth/register</p>
       </form>
     </FormProvider>
   );

@@ -1,20 +1,8 @@
-/* Organic — design-system tokens and component classes (extraído do protótipo "Arena Beach Tennis"). */
-@font-face {
-  font-family: 'Caprasimo';
-  font-style: normal;
-  font-weight: 400;
-  font-display: swap;
-  src: url('./fonts/caprasimo-latin-ext.woff2') format('woff2');
-  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
-}
-@font-face {
-  font-family: 'Caprasimo';
-  font-style: normal;
-  font-weight: 400;
-  font-display: swap;
-  src: url('./fonts/caprasimo-latin.woff2') format('woff2');
-  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
-}
+/* Organic — design-system tokens and component classes (base do protótipo "Arena Beach Tennis"),
+   retunado para a identidade da Ottawa Tech (design v2): tema escuro, ciano #1fb4f5 + violeta #7a5cff. */
+@import '@fontsource-variable/sora';
+
+/* Figtree (corpo) — auto-hospedada a partir do bundle do protótipo. */
 @font-face {
   font-family: 'Figtree';
   font-style: normal;
@@ -33,48 +21,54 @@
 }
 
 :root {
-  --color-bg: #f5ead8;
-  --color-surface: #ebddc5;
-  --color-text: #201e1d;
-  --color-accent: #c67139;
-  --color-accent-2: #7a8a5e;
-  --color-divider: color-mix(in srgb, #201e1d 16%, transparent);
+  color-scheme: dark;
 
-  /* Tonal ramps — generated in OKLCH on one shared lightness scale, so the
-     same step of any role matches the others in visual value. */
-  --color-neutral-100: #f9f4ed;
-  --color-neutral-200: #eee7db;
-  --color-neutral-300: #dcd3c4;
-  --color-neutral-400: #c0b6a5;
-  --color-neutral-500: #a19786;
-  --color-neutral-600: #82796a;
-  --color-neutral-700: #645c50;
-  --color-neutral-800: #474238;
-  --color-neutral-900: #2e2b25;
+  --color-bg: #040813;
+  --color-surface: #0d1426;
+  --color-text: #eaf0ff;
+  --color-accent: #1fb4f5;
+  --color-accent-2: #7a5cff;
+  --color-divider: color-mix(in srgb, #eaf0ff 14%, transparent);
 
-  --color-accent-100: #fff2eb;
-  --color-accent-200: #ffe1d0;
-  --color-accent-300: #ffc6a5;
-  --color-accent-400: #f6a06b;
-  --color-accent-500: #d67f48;
-  --color-accent-600: #b2622d;
-  --color-accent-700: #8c491a;
-  --color-accent-800: #643312;
-  --color-accent-900: #402310;
+  /* Rampas tonais do tema escuro: o passo 100 é o mais próximo do fundo e o 900 o mais claro,
+     então "tag clara com texto escuro" do tema original vira "tag escura com texto claro". */
+  --color-neutral-100: #111a30;
+  --color-neutral-200: #172139;
+  --color-neutral-300: #202b48;
+  --color-neutral-400: #34405f;
+  --color-neutral-500: #56627f;
+  --color-neutral-600: #76819c;
+  --color-neutral-700: #9aa4bb;
+  --color-neutral-800: #c3cad9;
+  --color-neutral-900: #e8ecf5;
 
-  --color-accent-2-100: #f0fae1;
-  --color-accent-2-200: #e1eecc;
-  --color-accent-2-300: #ccdbb2;
-  --color-accent-2-400: #aebf92;
-  --color-accent-2-500: #8fa073;
-  --color-accent-2-600: #728157;
-  --color-accent-2-700: #56633f;
-  --color-accent-2-800: #3d472b;
-  --color-accent-2-900: #272e1b;
+  --color-accent-100: #0a2236;
+  --color-accent-200: #0e3656;
+  --color-accent-300: #135284;
+  --color-accent-400: #1a78bd;
+  --color-accent-500: #1f9ae3;
+  --color-accent-600: #5ccbff;
+  --color-accent-700: #8fdcff;
+  --color-accent-800: #c2ecff;
+  --color-accent-900: #e8f8ff;
 
-  --font-heading: "Caprasimo", system-ui, sans-serif;
-  --font-heading-weight: 400;
-  --font-body: "Figtree", system-ui, sans-serif;
+  --color-accent-2-100: #161238;
+  --color-accent-2-200: #231b5a;
+  --color-accent-2-300: #36298a;
+  --color-accent-2-400: #523dc0;
+  --color-accent-2-500: #7a5cff;
+  --color-accent-2-600: #9a84ff;
+  --color-accent-2-700: #b7a8ff;
+  --color-accent-2-800: #d6ceff;
+  --color-accent-2-900: #efebff;
+
+  /* Degradê da marca (botão primário, destaques). */
+  --gradient-brand: linear-gradient(90deg, #1fb4f5, #7a5cff);
+  --gradient-brand-hover: linear-gradient(90deg, #5ccbff, #9a84ff);
+
+  --font-heading: 'Sora Variable', 'Sora', system-ui, sans-serif;
+  --font-heading-weight: 600;
+  --font-body: 'Figtree', system-ui, sans-serif;
 
   --space-1: 4.4px;
   --space-2: 8.8px;
@@ -87,11 +81,10 @@
   --radius-md: 16px;
   --radius-lg: 28px;
 
-  /* Elevation — derived from the ground: soft ink-tinted shadows on a
-     light theme, a hairline edge + ambient darkness on a dark one. */
-  --shadow-sm: 0 1px 2px color-mix(in srgb, #2e2b25 14%, transparent);
-  --shadow-md: 0 3px 10px color-mix(in srgb, #2e2b25 16%, transparent);
-  --shadow-lg: 0 12px 32px color-mix(in srgb, #2e2b25 22%, transparent);
+  /* Elevação no tema escuro: contorno fino + escuridão ambiente. */
+  --shadow-sm: 0 0 0 1px color-mix(in srgb, #eaf0ff 8%, transparent);
+  --shadow-md: 0 0 0 1px color-mix(in srgb, #eaf0ff 9%, transparent), 0 8px 24px rgba(0, 0, 0, 0.45);
+  --shadow-lg: 0 0 0 1px color-mix(in srgb, #eaf0ff 10%, transparent), 0 20px 48px rgba(0, 0, 0, 0.6);
 }
 
 body {
@@ -154,9 +147,9 @@ figcaption {
 }
 .btn svg { display: block; }
 .btn:disabled { opacity: 0.45; cursor: not-allowed; }
-.btn-primary { background: var(--color-accent); color: var(--color-bg); }
-.btn-primary:hover { background: var(--color-accent-600); }
-.btn-primary:active { background: var(--color-accent-700); }
+.btn-primary { background: var(--gradient-brand); color: #fff; }
+.btn-primary:hover { background: var(--gradient-brand-hover); }
+.btn-primary:active { background: var(--gradient-brand); filter: brightness(0.92); }
 .btn-secondary { border-color: var(--color-divider); }
 .btn-secondary:hover { background: color-mix(in srgb, var(--color-text) 7%, transparent); }
 .btn-secondary:active { background: color-mix(in srgb, var(--color-text) 14%, transparent); }
@@ -180,6 +173,7 @@ figcaption {
 .input:hover { border-color: color-mix(in srgb, var(--color-text) 45%, transparent); }
 .input:focus-visible { border-color: var(--color-accent); outline-offset: 0; }
 textarea.input { min-height: 90px; resize: vertical; }
+input[type="date"] { color-scheme: dark; }
 .radio { display: inline-flex; align-items: center; gap: 8px; cursor: pointer; font-size: 14px; }
 .radio input, .seg-opt input {
   position: absolute; opacity: 0; width: 0; height: 0; pointer-events: none;
@@ -267,7 +261,8 @@ textarea.input { min-height: 90px; resize: vertical; }
 .dialog-backdrop {
   position: fixed; inset: 0; display: grid; place-items: center;
   padding: var(--space-4);
-  background: color-mix(in srgb, var(--color-neutral-900) 50%, transparent);
+  background: rgba(2, 4, 10, 0.72);
+  backdrop-filter: blur(4px);
 }
 .dialog {
   width: min(440px, 100%); display: flex; flex-direction: column; gap: var(--space-3);

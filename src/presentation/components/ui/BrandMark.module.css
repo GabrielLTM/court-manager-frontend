@@ -1,11 +1,15 @@
 .brand { display: flex; align-items: center; gap: 10px; }
 .logo {
-  width: 36px; height: 36px; flex: none; border-radius: 999px;
-  display: grid; place-items: center;
-  background: var(--color-accent); color: var(--color-bg);
-  font-family: var(--font-heading); font-size: 17px;
+  width: 40px; height: 40px; flex: none; border-radius: 11px;
+  background: #040813; object-fit: cover;
+  box-shadow: 0 0 0 1px color-mix(in srgb, var(--color-accent) 30%, transparent);
 }
+.text { display: grid; line-height: 1.15; }
 .name { font-family: var(--font-heading); font-size: 18px; }
+.subtitle {
+  font-size: 11px; letter-spacing: 0.24em; text-transform: uppercase;
+  color: var(--color-accent);
+}
 .lg { gap: 12px; }
-.lg .logo { width: 44px; height: 44px; font-size: 20px; }
+.lg .logo { width: 52px; height: 52px; border-radius: 15px; }
 .lg .name { font-size: 20px; }

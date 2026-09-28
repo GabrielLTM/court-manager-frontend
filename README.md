@@ -30,7 +30,7 @@ as mesmas regras de negócio — basta trocar uma variável de ambiente para usa
 | TanStack Query 5                         | Cache e sincronização dos dados do servidor                            |
 | React Hook Form 7 + Zod 4                | Formulários e validação                                                |
 | Axios                                    | Cliente HTTP (usado somente na camada de infraestrutura)               |
-| CSS Modules + design system "Organic"    | Estilos com os tokens do protótipo (Caprasimo + Figtree)               |
+| CSS Modules + design system "Organic"    | Tokens retunados para a identidade Ottawa Tech (tema escuro, Sora + Figtree) |
 | Vitest 5 + Testing Library + jsdom       | Testes                                                                 |
 | ESLint 10 + typescript-eslint + Prettier | Qualidade e padronização (inclui a regra de dependência entre camadas) |
 

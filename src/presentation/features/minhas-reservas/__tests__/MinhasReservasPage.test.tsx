@@ -131,7 +131,7 @@ describe('MinhasReservasPage', () => {
     expect(within(passada).queryByRole('button')).not.toBeInTheDocument();
 
     expect(
-      screen.getByText('RN08 — o cancelamento é permitido até 4 horas antes do horário da reserva.'),
+      screen.getByText('Você pode cancelar sua reserva até 4 horas antes do horário marcado.'),
     ).toBeInTheDocument();
   });
 

@@ -32,7 +32,7 @@ export function ResumoReserva({ quadra, data, horaInicio, duracaoMinutos, onConf
       <Button variant="primary" size="xl" block disabled={!podeConfirmar} onClick={onConfirmar}>
         {podeConfirmar ? 'Confirmar reserva' : 'Selecione um horário'}
       </Button>
-      <p className={styles.nota}>RN04 — a disponibilidade é revalidada no backend no momento da criação da reserva.</p>
+      <p className={styles.nota}>O horário fica garantido assim que a reserva é confirmada.</p>
     </Card>
   );
 }

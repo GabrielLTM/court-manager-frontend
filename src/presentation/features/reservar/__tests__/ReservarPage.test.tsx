@@ -74,7 +74,7 @@ describe('ReservarPage', () => {
     expect(screen.getByText('Selecionada: 20/09/2026')).toBeInTheDocument();
 
     await user.click(screen.getByRole('button', { name: /Quadra 02/ }));
-    expect(await screen.findByText('RN03 — Quadra 02 em manutenção não pode ser reservada.')).toBeInTheDocument();
+    expect(await screen.findByText('Esta quadra está em manutenção no momento')).toBeInTheDocument();
     expect(quadra01).toHaveAttribute('aria-pressed', 'true');
 
     const ocupado = await screen.findByRole('button', { name: '19:00' });

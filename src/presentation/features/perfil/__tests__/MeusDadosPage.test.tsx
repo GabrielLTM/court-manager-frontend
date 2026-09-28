@@ -19,7 +19,6 @@ describe('MeusDadosPage (RF02)', () => {
     renderPagina();
 
     expect(screen.getByRole('heading', { level: 1, name: 'Meus dados' })).toBeInTheDocument();
-    expect(screen.getByText('/meus-dados')).toBeInTheDocument();
     expect(await screen.findByLabelText('Nome completo')).toHaveValue(CLIENTE_DEMO.nome);
     expect(screen.getByLabelText('CPF')).toHaveValue(CLIENTE_DEMO.cpf);
     expect(screen.getByLabelText('Data de nascimento')).toHaveValue(CLIENTE_DEMO.dataNascimento);

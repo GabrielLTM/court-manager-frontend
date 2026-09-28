@@ -6,7 +6,6 @@ import {
   MOTIVO_INDISPONIBILIDADE_LABEL,
   gerarSlots,
   janelaDeReserva,
-  mensagemQuadraIndisponivel,
 } from '@/domain/rules';
 import { DateSelector } from '@/presentation/components/DateSelector/DateSelector';
 import { useHoje } from '@/presentation/hooks/useHoje';
@@ -17,6 +16,7 @@ import { useCriarReserva, useDisponibilidade } from '@/presentation/queries';
 import { ROUTES } from '@/presentation/routes/paths';
 import { formatDataLonga } from '@/shared/lib/date';
 import {
+  avisoQuadraIndisponivel,
   horarioSelecionavel,
   mensagemReservaCriada,
   montarNovaReserva,
@@ -53,7 +53,7 @@ export function ReservaForm({ quadras }: { quadras: readonly Quadra[] }) {
     : null;
   const horaInicio = horarioSelecionavel(slots, selecao.horaInicio);
 
-  const avisarQuadraIndisponivel = (alvo: Quadra) => toast.show(mensagemQuadraIndisponivel(alvo));
+  const avisarQuadraIndisponivel = (alvo: Quadra) => toast.show(avisoQuadraIndisponivel(alvo));
   const avisarHorarioIndisponivel = (slot: Slot) =>
     toast.show(MOTIVO_INDISPONIBILIDADE_LABEL[slot.motivo ?? 'ocupado']);
 
@@ -111,7 +111,7 @@ export function ReservaForm({ quadras }: { quadras: readonly Quadra[] }) {
           />
         </Etapa>
 
-        <Etapa titulo="4. Horários disponíveis" complemento="GET /api/quadras/{id}/disponibilidade">
+        <Etapa titulo="4. Horários disponíveis">
           <HorariosDisponiveis
             quadra={quadra}
             consulta={disponibilidade}

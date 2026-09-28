@@ -2,6 +2,7 @@ import { ajudaMetodoPagamento } from '@/presentation/components/MetodoPagamentoP
 import type { Quadra, Slot } from '@/domain/entities';
 import { MetodoPagamento, StatusQuadra } from '@/domain/enums';
 import {
+  avisoQuadraIndisponivel,
   descreverHorario,
   horarioSelecionavel,
   linhasConfirmacao,
@@ -157,5 +158,12 @@ describe('pagamento e envio', () => {
 
   it('formata a mensagem de sucesso', () => {
     expect(mensagemReservaCriada({ id: 1048, valor: 80 })).toBe('Reserva RSV-1048 criada — R$ 80,00');
+  });
+});
+
+describe('avisoQuadraIndisponivel', () => {
+  it('explica o motivo sem jargão técnico (design v2)', () => {
+    expect(avisoQuadraIndisponivel({ status: StatusQuadra.Manutencao })).toBe('Esta quadra está em manutenção no momento');
+    expect(avisoQuadraIndisponivel({ status: StatusQuadra.Inativa })).toBe('Esta quadra está indisponível no momento');
   });
 });

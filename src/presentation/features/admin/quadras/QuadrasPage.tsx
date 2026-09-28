@@ -2,7 +2,6 @@ import { useState } from 'react';
 import type { Quadra } from '@/domain/entities';
 import { AsyncContent, Button, EmptyState, PageHeader } from '@/presentation/components/ui';
 import { useQuadras } from '@/presentation/queries';
-import { ROUTES } from '@/presentation/routes/paths';
 import { QuadraCard } from './components/QuadraCard';
 import { QuadraFormDialog } from './components/QuadraFormDialog';
 import { sugerirNomeQuadra } from './quadras.utils';
@@ -18,7 +17,6 @@ export default function QuadrasPage() {
     <>
       <PageHeader
         title="Quadras"
-        route={ROUTES.admin.quadras}
         actions={
           <Button variant="primary" onClick={() => setEmEdicao(null)}>
             + Nova quadra
