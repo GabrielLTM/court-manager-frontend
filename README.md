@@ -1,238 +1,219 @@
+<div align="center">
+
+<img src="src/presentation/assets/ottawa-tech-simbolo.jpg" alt="Símbolo da Ottawa Tech" width="96" />
+
 # Arena Beach Tennis — Frontend
 
-Sistema de gestão de uma arena de beach tennis (projeto **Ottawa Tech**, disciplina de Frameworks Web).
-É uma SPA em React que replica o protótipo _Arena Beach Tennis_: o **cliente** consulta a
-disponibilidade das quadras, reserva um horário e acompanha o pagamento; o **administrador** gerencia
-clientes, quadras, reservas e pagamentos na mesma aplicação.
+**Quadras, clientes, reservas e pagamentos de uma arena de beach tennis em uma única aplicação web.**
 
-O backend oficial é uma API REST em ASP.NET Core (repositório `OttawaTech-BackEnd`). Enquanto ela não
-fica pronta, o frontend roda com um **backend simulado no navegador** que implementa o mesmo contrato e
-as mesmas regras de negócio — basta trocar uma variável de ambiente para usar a API real.
+[Começando](#começando) · [Documentação](docs/README.md) · [Arquitetura](docs/architecture.md) · [Telas e fluxos](docs/screens.md) · [Contrato da API](docs/api-contract.md)
+
+![React 19](https://img.shields.io/badge/React-19-61dafb?logo=react&logoColor=white)
+![TypeScript 5.9](https://img.shields.io/badge/TypeScript-5.9-3178c6?logo=typescript&logoColor=white)
+![Vite 8](https://img.shields.io/badge/Vite-8-646cff?logo=vite&logoColor=white)
+![Testes com Vitest](https://img.shields.io/badge/testes-Vitest-6e9f18?logo=vitest&logoColor=white)
+![Node 20.19 ou superior](https://img.shields.io/badge/node-%3E%3D20.19-339933?logo=nodedotjs&logoColor=white)
+![Status: MVP](https://img.shields.io/badge/status-MVP-1fb4f5)
+
+</div>
+
+| Cliente — reservar quadra | Administrador — visão geral da arena |
+| :-: | :-: |
+| ![Tela de reserva de quadra com datas, quadras, duração e horários disponíveis](docs/images/reservar.png) | ![Dashboard do administrador com indicadores do dia e ocupação por quadra](docs/images/admin-dashboard.png) |
 
 ## Sumário
 
-- [Stack](#stack)
-- [Como executar](#como-executar)
-- [Modos de dados: mock × http](#modos-de-dados-mock--http)
-- [Scripts](#scripts)
+- [Sobre o projeto](#sobre-o-projeto)
+- [Funcionalidades](#funcionalidades)
+- [Tecnologias](#tecnologias)
 - [Arquitetura](#arquitetura)
+- [Começando](#começando)
+- [Scripts](#scripts)
+- [Estrutura do projeto](#estrutura-do-projeto)
 - [Rotas](#rotas)
-- [Requisitos e regras de negócio](#requisitos-e-regras-de-negócio)
 - [Testes](#testes)
+- [Integração com o backend](#integração-com-o-backend)
+- [Documentação](#documentação)
+- [Roadmap](#roadmap)
+- [Contribuindo](#contribuindo)
+- [Equipe](#equipe)
+- [Licença](#licença)
+- [Créditos](#créditos)
 
-## Stack
+## Sobre o projeto
 
-| Tecnologia                               | Uso                                                                    |
-| ---------------------------------------- | ---------------------------------------------------------------------- |
-| React 19 + TypeScript 5.9 (`strict`)     | Interface                                                              |
-| Vite 8                                   | Servidor de desenvolvimento (com proxy `/api`) e build                 |
-| React Router 7                           | Rotas com carregamento sob demanda e guards por perfil                 |
-| TanStack Query 5                         | Cache e sincronização dos dados do servidor                            |
-| React Hook Form 7 + Zod 4                | Formulários e validação                                                |
-| Axios                                    | Cliente HTTP (usado somente na camada de infraestrutura)               |
-| CSS Modules + design system "Organic"    | Tokens retunados para a identidade Ottawa Tech (tema escuro, Sora + Figtree) |
-| Vitest 5 + Testing Library + jsdom       | Testes                                                                 |
-| ESLint 10 + typescript-eslint + Prettier | Qualidade e padronização (inclui a regra de dependência entre camadas) |
+Aplicação web da **Ottawa Tech** para gerenciar uma arena de beach tennis. O **cliente** consulta a
+disponibilidade das quadras, reserva um horário e acompanha o pagamento; o **administrador** gerencia
+clientes, quadras, reservas e pagamentos. O escopo é o MVP descrito na _Especificação 1.0_ (Sprints 1 a 6).
 
-## Como executar
+O backend oficial é uma API REST em ASP.NET Core. Enquanto ela não expõe todos os endpoints, o frontend
+roda com um **backend simulado no navegador**, que implementa o mesmo contrato e as mesmas regras de
+negócio. Trocar para a API real exige apenas mudar uma variável de ambiente
+([como fazer](docs/getting-started.md#usando-a-api-real)).
 
-Pré-requisitos: **Node.js 20.19+** e npm.
+> A Especificação 1.0 cita Angular para o frontend; esta implementação usa **React**, mantendo as rotas,
+> as telas e a separação de responsabilidades previstas na especificação.
+
+## Funcionalidades
+
+**Cliente**
+
+- Criar a própria conta, entrar e atualizar os próprios dados.
+- Consultar as quadras e os horários livres de qualquer dia nos próximos 30 dias.
+- Reservar escolhendo data, quadra, duração (1 hora, 1h30 ou 2 horas) e horário, com o valor calculado.
+- Pagar a reserva por Pix ou cartão (simulados) ou em dinheiro (o administrador confirma o recebimento).
+- Acompanhar reservas e pagamentos; cancelar até 4 horas antes do início, com estorno do pagamento.
+
+**Administrador**
+
+- Dashboard com clientes ativos, reservas e recebimentos do dia e ocupação por quadra.
+- Grade de reservas por dia, quadra e horário, com detalhe, alteração e cancelamento.
+- Quadras: cadastro, edição e status (ativa, em manutenção ou inativa).
+- Clientes: cadastro, edição, busca, filtros, paginação e inativação sem apagar o histórico.
+- Pagamentos: filtros por status, confirmação de recebimentos e recibos.
+
+**Em todo o sistema**
+
+- Regras de negócio RN01–RN10 aplicadas no domínio e no backend simulado
+  ([detalhes](docs/business-rules.md)).
+- Controle de acesso por perfil nas rotas e nas operações.
+- Validação de formulários, mensagens de sucesso e erro, estados de carregamento e de lista vazia.
+- Layout responsivo (verificado a partir de 375 px) no tema escuro da Ottawa Tech.
+
+## Tecnologias
+
+| Tecnologia | Uso |
+| --- | --- |
+| [React 19](https://react.dev) + [TypeScript 5.9](https://www.typescriptlang.org) (`strict`) | Interface |
+| [Vite 8](https://vite.dev) | Servidor de desenvolvimento (com proxy `/api`) e build |
+| [React Router 7](https://reactrouter.com) | Rotas com carregamento sob demanda e guards por perfil |
+| [TanStack Query 5](https://tanstack.com/query) | Cache e sincronização dos dados do servidor |
+| [React Hook Form 7](https://react-hook-form.com) + [Zod 4](https://zod.dev) | Formulários e validação |
+| [Axios](https://axios-http.com) | Cliente HTTP (somente na camada de infraestrutura) |
+| CSS Modules + design tokens | Estilos; fontes Sora e Figtree hospedadas localmente |
+| [Vitest 5](https://vitest.dev) + [Testing Library](https://testing-library.com) + jsdom | Testes |
+| ESLint 10 + typescript-eslint + Prettier | Qualidade, padronização e regra de dependência entre camadas |
+
+## Arquitetura
+
+O código segue a **Arquitetura Limpa**: as regras de negócio ficam no centro, sem depender de React,
+HTTP ou armazenamento. As camadas externas dependem das internas, nunca o contrário, e o
+`npm run lint` falha se uma importação atravessar a fronteira errada.
+
+```mermaid
+flowchart BT
+    domain["<b>domain</b><br/>entidades, enums e regras RN01–RN10"]
+    application["<b>application</b><br/>casos de uso, DTOs e portas"]
+    infrastructure["<b>infrastructure</b><br/>HTTP (axios), backend simulado,<br/>sessão no localStorage"]
+    presentation["<b>presentation</b><br/>React: rotas, telas e componentes"]
+    di["<b>di/container.ts</b><br/>composition root: escolhe mock ou http"]
+
+    application --> domain
+    infrastructure --> application
+    presentation --> application
+    di --> infrastructure
+    di --> presentation
+```
+
+A interface recebe os casos de uso prontos (`AppServices`) por injeção de dependência e nunca fala com
+axios, repositórios ou `localStorage` diretamente. Detalhes, fluxos e decisões em
+[docs/architecture.md](docs/architecture.md) e nos [ADRs](docs/adr/README.md).
+
+## Começando
+
+### Pré-requisitos
+
+- [Node.js](https://nodejs.org) **20.19 ou superior** (inclui o npm)
+- Git
+
+### Instalação e execução
 
 ```bash
+git clone https://github.com/GabrielLTM/court-manager-frontend.git
+cd court-manager-frontend
 npm install
 npm run dev
 ```
 
 Abra <http://localhost:5173>. Por padrão o app usa o backend simulado, então nenhum outro servidor é
-necessário.
+necessário e não há nada para configurar.
 
-### Contas de demonstração (modo mock)
+### Contas de demonstração
 
-| Perfil        | E-mail              | Senha      |
-| ------------- | ------------------- | ---------- |
-| Cliente       | `isadora@email.com` | `123456`   |
-| Administrador | `admin@arena.com`   | `admin123` |
+| Perfil | E-mail | Senha |
+| --- | --- | --- |
+| Cliente | `isadora@email.com` | `123456` |
+| Administrador | `admin@arena.com` | `admin123` |
 
-- Na tela de login, **Acesso rápido (demonstração)** preenche essas credenciais.
-- Dentro do sistema, o seletor **Cliente | Admin** do cabeçalho troca de conta sem precisar sair.
-- Os demais clientes semeados (ex.: `bruna@email.com`) também usam a senha `123456`;
-  `marina@email.com` está inativa e não consegue entrar.
-- Também é possível criar uma conta nova em **Criar conta** (`/cadastro`).
+Na tela de login, os botões de **Acessar como** preenchem as credenciais. Dentro do sistema, o seletor
+**Cliente | Admin** do cabeçalho troca de conta sem sair. Também é possível criar uma conta em
+**Criar conta**.
 
-Os dados simulados ficam no `localStorage` do navegador (chave `arena.mock-db.v1`; a sessão fica em
-`arena.sessao`) e as reservas de exemplo são geradas em relação à data de hoje. Para voltar aos dados
-iniciais, apague essas chaves (DevTools → Application → Local Storage) ou limpe os dados do site.
+### Variáveis de ambiente
 
-## Modos de dados: mock × http
+Opcionais; copie o modelo com `cp .env.example .env` para alterá-las.
 
-A configuração fica no `.env` (use o `.env.example` como modelo):
+| Variável | Padrão | Descrição |
+| --- | --- | --- |
+| `VITE_API_MODE` | `mock` | `mock`: backend simulado no navegador. `http`: API REST ASP.NET Core. |
+| `VITE_API_BASE_URL` | `/api` | Base URL do cliente HTTP. Com o proxy do Vite, mantenha `/api`. |
+| `VITE_BACKEND_URL` | `http://localhost:5160` | Destino do proxy de desenvolvimento para `/api/*`. |
 
-| Variável            | Padrão                  | Descrição                                                                                                    |
-| ------------------- | ----------------------- | ------------------------------------------------------------------------------------------------------------ |
-| `VITE_API_MODE`     | `mock`                  | `mock`: backend simulado no navegador (localStorage, latência de 150–400 ms). `http`: API REST ASP.NET Core. |
-| `VITE_API_BASE_URL` | `/api`                  | Base URL do cliente HTTP. Com o proxy do Vite, mantenha `/api`.                                              |
-| `VITE_BACKEND_URL`  | `http://localhost:5160` | Destino do proxy do Vite para `/api/*` (perfil `http` do `launchSettings.json` do backend).                  |
-
-Para usar a API real:
-
-1. Suba o backend no perfil `http` (`dotnet run --launch-profile http` no projeto `Ottawa Tech - BackEnd`),
-   que escuta em <http://localhost:5160>.
-2. Crie o `.env` a partir do modelo (`cp .env.example .env` — ele não é versionado) e defina `VITE_API_MODE=http`.
-3. Rode `npm run dev`. O Vite repassa `/api/*` para o backend, sem problemas de CORS.
-
-O contrato esperado da API (rotas, formatos, enums, erros e as regras que o servidor deve revalidar)
-está em **[docs/api-contract.md](docs/api-contract.md)**.
+Guia completo (API real, build, deploy e solução de problemas): [docs/getting-started.md](docs/getting-started.md).
 
 ## Scripts
 
-| Comando              | O que faz                                                   |
-| -------------------- | ----------------------------------------------------------- |
-| `npm run dev`        | Servidor de desenvolvimento em <http://localhost:5173>      |
-| `npm run build`      | Checagem de tipos (`tsc -b`) + build de produção em `dist/` |
-| `npm run preview`    | Serve localmente o build de produção                        |
-| `npm run typecheck`  | Somente a checagem de tipos                                 |
-| `npm run lint`       | ESLint, incluindo as regras de dependência entre camadas    |
-| `npm test`           | Executa os testes (Vitest)                                  |
-| `npm run test:watch` | Testes em modo observação                                   |
-| `npm run format`     | Formata `src/` com o Prettier                               |
+| Comando | O que faz |
+| --- | --- |
+| `npm run dev` | Servidor de desenvolvimento em <http://localhost:5173> |
+| `npm run build` | Checagem de tipos (`tsc -b`) e build de produção em `dist/` |
+| `npm run preview` | Serve localmente o build de produção |
+| `npm run typecheck` | Somente a checagem de tipos |
+| `npm run lint` | ESLint, incluindo as regras de dependência entre camadas |
+| `npm test` | Executa todos os testes uma vez (Vitest) |
+| `npm run test:watch` | Testes em modo observação |
+| `npm run format` | Formata `src/` com o Prettier |
 
-## Arquitetura
-
-O código segue a **Arquitetura Limpa**: as regras de negócio ficam no centro, sem depender de React,
-HTTP ou armazenamento; as bordas (interface e infraestrutura) dependem do centro, nunca o contrário.
+## Estrutura do projeto
 
 ```text
-                 ┌──────────────────────────────┐
-                 │            domain            │  entidades, enums, regras RN01–RN10
-                 └──────────────▲───────────────┘  (TypeScript puro)
-                                │
-                 ┌──────────────┴───────────────┐
-                 │         application          │  casos de uso, DTOs, portas (interfaces),
-                 └───────▲──────────────▲───────┘  fachada AppServices
-                         │              │
-       ┌─────────────────┴───┐      ┌───┴──────────────────┐
-       │   infrastructure    │      │     presentation     │
-       │  HTTP (axios), mock,│      │  React: rotas, telas,│
-       │  localStorage, clock│      │  React Query, UI     │
-       └─────────▲───────────┘      └───▲──────────────────┘
-                 │                      │
-                 └──────────┬───────────┘
-                 ┌──────────┴───────────┐
-                 │   di/container.ts    │  composition root: escolhe mock ou http
-                 └──────────────────────┘  e injeta os casos de uso na interface
-```
-
-A seta aponta para quem é usado: `domain ← application ← infrastructure / presentation ← di`.
-A apresentação recebe os casos de uso prontos (`AppServices`) por injeção de dependência
-(`ServicesProvider`) e **nunca** conversa com repositórios, axios ou localStorage diretamente.
-
-### Regra de dependência (verificada pelo ESLint)
-
-O `eslint.config.js` aplica `no-restricted-imports` por camada; `npm run lint` falha se alguma
-importação atravessar a fronteira errada:
-
-| Camada               | Não pode importar                                                       |
-| -------------------- | ----------------------------------------------------------------------- |
-| `src/domain`         | `application`, `infrastructure`, `presentation`, `di`, `react`, `axios` |
-| `src/application`    | `infrastructure`, `presentation`, `di`, `react`, `axios`                |
-| `src/infrastructure` | `presentation`, `di`, `react`                                           |
-| `src/presentation`   | `infrastructure`, `axios`                                               |
-
-`src/shared` (funções puras de data, horário, moeda e máscaras) e `src/config` (variáveis de ambiente e
-contas de demonstração) são utilitários sem dependências de camada.
-
-### Estrutura de pastas
-
-```text
-src/
-├── main.tsx                 # ponto de entrada: cria o container de DI e renderiza <App />
-├── config/                  # variáveis VITE_* e contas de demonstração
-├── domain/                  # entidades, enums (objetos `as const`), regras de negócio, DomainError
-├── application/             # AppServices (fachada), casos de uso, DTOs, portas, AppError
-├── infrastructure/
-│   ├── http/                # adaptadores REST (axios) e mapeadores do contrato
-│   ├── mock/                # backend simulado: mesmas rotas, regras e erros da API
-│   ├── storage/             # SessionStore (token JWT + usuário) no localStorage
-│   └── clock/               # relógio do sistema
-├── di/container.ts          # composition root (mock × http)
-├── presentation/
-│   ├── app/                 # App, mapa de rotas, guards e layout autenticado
-│   ├── features/            # telas por funcionalidade: auth, reservar, minhas-reservas,
-│   │                        #   perfil, admin/* (dashboard, grade, quadras, clientes, pagamentos), errors
-│   ├── components/          # design system (ui/), campos de formulário e componentes compartilhados
-│   ├── providers/           # DI, React Query, sessão (AuthProvider) e toasts
-│   ├── queries/             # hooks do React Query sobre os AppServices
-│   ├── validation/          # esquemas Zod dos formulários
-│   ├── hooks/ lib/ routes/  # utilitários da interface e caminhos das rotas
-│   └── styles/              # tokens e classes do design system, fontes
-├── shared/lib/              # datas, horários, moeda e máscaras
-└── test/setup.ts            # configuração do Vitest
-docs/api-contract.md         # contrato da API REST esperado do backend
+court-manager-frontend/
+├── docs/                 # documentação (índice em docs/README.md)
+├── public/               # favicon e ícones
+├── src/
+│   ├── domain/           # entidades, enums, regras de negócio e DomainError
+│   ├── application/      # casos de uso, DTOs, portas e a fachada AppServices
+│   ├── infrastructure/   # adaptadores HTTP, backend simulado, sessão e relógio
+│   ├── presentation/     # React: rotas, telas, componentes, providers e estilos
+│   ├── di/               # composition root (container.ts)
+│   ├── config/           # variáveis de ambiente e contas de demonstração
+│   ├── shared/           # utilitários puros: datas, horários, moeda e máscaras
+│   ├── test/             # configuração do Vitest
+│   └── main.tsx          # ponto de entrada
+├── .env.example          # modelo das variáveis de ambiente
+├── eslint.config.js      # inclui a regra de dependência entre camadas
+├── vite.config.ts        # Vite, proxy /api e configuração do Vitest
+├── CONTRIBUTING.md
+├── CHANGELOG.md
+└── package.json
 ```
 
 ## Rotas
 
-| Rota                          | Perfil        | Tela                                                      |
-| ----------------------------- | ------------- | --------------------------------------------------------- |
-| `/`                           | —             | Redireciona para a home do perfil logado ou para `/login` |
-| `/login`                      | Público       | Entrar                                                    |
-| `/cadastro`                   | Público       | Criar conta (autocadastro do cliente)                     |
-| `/reservar`                   | Cliente       | Reservar quadra — home do cliente                         |
-| `/minhas-reservas`            | Cliente       | Minhas reservas (cancelar, pagar pendências)              |
-| `/meus-dados`                 | Cliente       | Meus dados (atualizar o próprio cadastro)                 |
-| `/admin` → `/admin/dashboard` | Administrador | Visão geral da arena — home do administrador              |
-| `/admin/reservas`             | Administrador | Grade de reservas por dia e quadra                        |
-| `/admin/quadras`              | Administrador | Quadras (cadastro, edição e status)                       |
-| `/admin/clientes`             | Administrador | Clientes (busca, cadastro, edição, inativação)            |
-| `/admin/pagamentos`           | Administrador | Pagamentos (confirmação e recibos)                        |
-| qualquer outra                | —             | Página não encontrada (404)                               |
+| Rota | Perfil | Tela |
+| --- | --- | --- |
+| `/login`, `/cadastro` | Público | Entrar e criar conta |
+| `/reservar` | Cliente | Reservar quadra (home do cliente) |
+| `/minhas-reservas` | Cliente | Minhas reservas: cancelar e pagar pendências |
+| `/meus-dados` | Cliente | Atualizar o próprio cadastro |
+| `/admin/dashboard` | Administrador | Visão geral da arena (home do administrador) |
+| `/admin/reservas` | Administrador | Grade de reservas |
+| `/admin/quadras` | Administrador | Quadras |
+| `/admin/clientes` | Administrador | Clientes |
+| `/admin/pagamentos` | Administrador | Pagamentos |
 
-Comportamento dos guards:
-
-- **Sem sessão** em uma rota protegida → `/login`, guardando a página de origem; depois de entrar, o
-  usuário volta para ela se o perfil dele puder acessá-la (senão, vai para a home do perfil).
-- **Perfil errado** (ex.: cliente em `/admin/...`) → home do próprio perfil.
-- **Já autenticado** em `/login` ou `/cadastro` → home do perfil.
-- **Sessão perdida** (clicar em _Sair_, token expirado ou resposta 401 da API) → volta automaticamente
-  para `/login`, com aviso.
-
-Cada página é carregada sob demanda (um chunk por rota), define o título da aba
-(ex.: "Reservar quadra · Arena Beach Tennis") e a rolagem volta ao topo a cada navegação.
-
-## Requisitos e regras de negócio
-
-Requisitos funcionais cobertos (MVP, Sprints 1 a 6):
-
-| Requisitos   | Funcionalidade                                                                                                                                                                                                 |
-| ------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| RF01–RF04    | Clientes: autocadastro e cadastro pelo administrador (RF01), atualização dos dados — inclusive em _Meus dados_ (RF02) —, consulta com busca e paginação e inativação/reativação sem excluir o histórico (RF04) |
-| RF05–RF08    | Quadras: cadastro e edição (RF05/RF06), status Ativa / Manutenção / Inativa (RF07) e consulta da disponibilidade por data                                                                                      |
-| RF09–RF13    | Reservas: criação com pagamento (RF09), cálculo de horários livres e bloqueio de conflitos (RF10), consulta das reservas, cancelamento (RF12) e alteração de data, horário ou quadra (RF13)                    |
-| RF14–RF16    | Pagamentos simulados: registro na reserva (RF14), consulta e confirmação de pagamentos pendentes pelo administrador (RF16)                                                                                     |
-| Sprint 5 / 6 | Autenticação JWT com perfis Cliente e Administrador; dashboard com indicadores do dia e ocupação por quadra                                                                                                    |
-
-Regras de negócio (validadas no domínio, no backend simulado e — conforme o contrato — no backend real):
-
-| Regra | Descrição                                                        |
-| ----- | ---------------------------------------------------------------- |
-| RN01  | CPF único entre clientes ativos                                  |
-| RN02  | E-mail único no cadastro                                         |
-| RN03  | Somente quadras ativas recebem novas reservas                    |
-| RN04  | Uma quadra não pode ter reservas com horários sobrepostos        |
-| RN05  | Toda reserva pertence a um cliente (ativo)                       |
-| RN06  | Toda reserva pertence a uma quadra                               |
-| RN07  | Valor da reserva = valor por hora da quadra × duração            |
-| RN08  | O cliente pode cancelar (ou alterar) até 4 horas antes do início |
-| RN09  | Reserva cancelada libera o horário                               |
-| RN10  | No máximo um pagamento ativo por reserva                         |
-
-Parâmetros da agenda: funcionamento das 07h às 22h, durações de 1 hora, 1h30 ou 2 horas e reservas
-de hoje até 30 dias à frente. Pagamento simulado: Pix e Cartão são aprovados na hora; Dinheiro fica
-pendente até o administrador confirmar o recebimento. O cancelamento estorna o pagamento pago e
-cancela o pendente.
-
-A interface pré-valida os dados (campos obrigatórios, formatos de CPF, telefone, e-mail e senha), mas
-o servidor sempre revalida tudo na gravação — os erros da API aparecem junto ao campo e em um aviso.
+Sem sessão, as rotas protegidas redirecionam para `/login`; com o perfil errado, o usuário vai para a
+home do próprio perfil. Imagens e fluxos de cada tela: [docs/screens.md](docs/screens.md).
 
 ## Testes
 
@@ -240,6 +221,67 @@ o servidor sempre revalida tudo na gravação — os erros da API aparecem junto
 npm test
 ```
 
-Há testes unitários das regras de domínio, dos casos de uso, do backend simulado e dos adaptadores
-HTTP, e testes de interface com Testing Library (rotas e guards, login/cadastro, telas do cliente e do
-administrador).
+A suíte tem mais de 230 testes, que cobrem as regras de domínio, os casos de uso, o backend simulado,
+os adaptadores HTTP e as telas (Testing Library). Estratégia, convenções e como escrever novos testes:
+[docs/testing.md](docs/testing.md).
+
+Antes de abrir um pull request, rode o conjunto de verificações:
+
+```bash
+npm run lint && npm run typecheck && npm test && npm run build
+```
+
+## Integração com o backend
+
+O frontend consome a API REST descrita em [docs/api-contract.md](docs/api-contract.md) (autenticação
+JWT, quadras, clientes, reservas e pagamentos). Para usá-la, suba o backend, defina
+`VITE_API_MODE=http` e rode `npm run dev`; o Vite repassa `/api/*` para o backend sem CORS.
+
+Na última verificação (25/09/2026, branch `Release`), o backend tinha apenas as entidades e os enums;
+os endpoints, a autenticação e o banco de dados ainda faltavam. A seção 7 do contrato lista o que
+precisa ser ajustado.
+
+## Documentação
+
+| Documento | Conteúdo |
+| --- | --- |
+| [docs/README.md](docs/README.md) | Índice da documentação |
+| [docs/getting-started.md](docs/getting-started.md) | Instalação, configuração, API real, build, deploy e solução de problemas |
+| [docs/screens.md](docs/screens.md) | Telas, fluxos de uso e capturas de tela |
+| [docs/business-rules.md](docs/business-rules.md) | Requisitos funcionais, regras de negócio e permissões |
+| [docs/architecture.md](docs/architecture.md) | Camadas, injeção de dependência, estado, rotas e erros |
+| [docs/adr/](docs/adr/README.md) | Registros das decisões de arquitetura |
+| [docs/design-system.md](docs/design-system.md) | Paleta, tipografia, tokens e componentes |
+| [docs/testing.md](docs/testing.md) | Estratégia e convenções de testes |
+| [docs/api-contract.md](docs/api-contract.md) | Contrato da API REST esperado do backend |
+| [CHANGELOG.md](CHANGELOG.md) | Histórico de mudanças |
+
+## Roadmap
+
+- [x] MVP do frontend: telas de cliente e administrador sobre o backend simulado
+- [x] Identidade visual da Ottawa Tech (tema escuro)
+- [ ] Integrar com a API ASP.NET Core quando os endpoints estiverem disponíveis
+- [ ] Testes de ponta a ponta e medição de cobertura
+- [ ] Pipeline de integração contínua (lint, tipos, testes e build)
+- [ ] Evoluções previstas na especificação: gateway de pagamento real, torneios, aulas e mensalidades
+
+## Contribuindo
+
+Contribuições são bem-vindas. Leia o [guia de contribuição](CONTRIBUTING.md) para conhecer o fluxo de
+trabalho, o padrão de commits e as regras de arquitetura.
+
+## Equipe
+
+Projeto da equipe **Ottawa Tech**: Alexandre De Ávila, Gabriel Lessa, Isadora Oliveira e Jeferson Rodrigues.
+
+## Licença
+
+Este é um projeto acadêmico e ainda não possui um arquivo de licença. Antes de reutilizar o código,
+fale com a equipe.
+
+## Créditos
+
+- Logotipo e identidade visual: Ottawa Tech.
+- Fontes [Sora](https://fonts.google.com/specimen/Sora) e [Figtree](https://fonts.google.com/specimen/Figtree),
+  sob a SIL Open Font License.
+- Selos do topo: [Shields.io](https://shields.io).

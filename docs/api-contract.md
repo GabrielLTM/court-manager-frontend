@@ -183,10 +183,19 @@ Use `ProblemDetails` (RFC 9457) com a mensagem ao usuário **em português no `d
 | 409 | RN01, RN02, RN04, RN10, confirmar pagamento não pendente | mensagem do `detail` |
 | 5xx | falha inesperada | mensagem genérica |
 
-## 7. Ajustes necessários no backend atual (branch `Release`)
+## 7. Ajustes necessários no backend (estado verificado em 25/09/2026)
+
+Verificado na branch `Release` (commit `ab1c4d5`), que tinha as entidades, os enums e um controller de
+teste, sem `DbContext` nem endpoints do contrato. Confirme com a equipe do backend se algo mudou desde então.
 
 - `Reserva` não tem `QuadraId` (RN06) e usa `ClienteID`/`id` com grafias diferentes — padronize `Id`, `ClienteId`, `QuadraId`.
 - `Status` como `bool` em `Quadra`, `Reserva` e `Pagamento` e `ClienteAtivo` em `Cliente` → use os enums da seção 4.
 - `Cliente.Telefone` é `int?` → `string`. `Pagamento.Metodo` é `string` → `MetodoPagamento`. `Pagamento.DataPagamento` → `DateTime?`.
 - `StatusQuadra` usa `Ativo/Inativo`; a especificação usa `Ativa/Inativa` (os números são iguais, o frontend aceita os dois).
 - `Program.cs`: registrar autenticação JWT (`AddAuthentication().AddJwtBearer`, `UseAuthentication`) e `[Authorize(Roles = "Administrador")]` nas rotas administrativas.
+
+## Ver também
+
+- [Regras de negócio e requisitos](business-rules.md) — o que cada regra (RN01–RN10) significa e onde é aplicada.
+- [Arquitetura](architecture.md) — como os adaptadores HTTP e o backend simulado se encaixam no frontend.
+- [Guia de instalação e execução](getting-started.md#usando-a-api-real) — como apontar o frontend para o backend real.
