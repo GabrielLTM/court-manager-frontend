@@ -16,7 +16,7 @@ export type StatusDescriptor =
   | { kind: 'quadra'; status: StatusQuadra }
   | { kind: 'cliente'; status: StatusCliente };
 
-/** statusClass() do protótipo: verde = ok, laranja = atenção, neutro = encerrado/inativo. */
+/** Tom de cada status: accent-2 (violeta) = ok, accent (ciano) = atenção, neutral = encerrado/inativo. */
 export function describeStatus(descriptor: StatusDescriptor): { label: string; tone: TagTone } {
   switch (descriptor.kind) {
     case 'reserva': {

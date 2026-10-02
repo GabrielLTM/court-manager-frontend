@@ -7,7 +7,7 @@ import { Pill } from '../Pill';
 import { describeStatus } from '../status';
 
 describe('describeStatus', () => {
-  it('usa verde para estados positivos, laranja para atenção e neutro para encerrados', () => {
+  it('usa violeta para estados positivos, ciano para atenção e neutro para encerrados', () => {
     expect(describeStatus({ kind: 'reserva', status: StatusReserva.Confirmada })).toEqual({
       label: 'Confirmada',
       tone: 'accent-2',

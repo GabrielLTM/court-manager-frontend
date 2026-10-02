@@ -12,7 +12,7 @@ export interface ButtonProps extends ComponentProps<'button'> {
   loading?: boolean;
 }
 
-/** Botão do design system (.btn): tipografia Caprasimo, formato pílula. */
+/** Botão do design system (.btn): tipografia Sora, formato pílula. */
 export function Button({
   variant = 'secondary',
   size = 'md',
