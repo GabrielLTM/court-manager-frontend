@@ -5,3 +5,7 @@ coverage
 .env
 .DS_Store
 *.tsbuildinfo
+.angular/
+out-tsc/
+playwright-report/
+test-results/

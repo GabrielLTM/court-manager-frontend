@@ -46,7 +46,7 @@ A mudança foi feita no commit `a56a1cd`:
 ## Referências
 
 - [`design-system.css`](../../src/presentation/styles/design-system.css): tokens e fontes.
-- [`BrandMark.tsx`](../../src/presentation/components/ui/BrandMark.tsx) e [`BrandMark.module.css`](../../src/presentation/components/ui/BrandMark.module.css).
+- [`BrandMark.tsx`](https://github.com/GabrielLTM/court-manager-frontend/blob/39f9d0ed4abfb254643f84f6868e9666649f31b3/src/presentation/components/ui/BrandMark.tsx) e [`BrandMark.module.css`](https://github.com/GabrielLTM/court-manager-frontend/blob/39f9d0ed4abfb254643f84f6868e9666649f31b3/src/presentation/components/ui/BrandMark.module.css).
 - [`ottawa-tech-simbolo.jpg`](../../src/presentation/assets/ottawa-tech-simbolo.jpg), [`favicon.png`](../../public/favicon.png) e [`apple-touch-icon.png`](../../public/apple-touch-icon.png).
 - [`index.html`](../../index.html) e [`package.json`](../../package.json).
 - [`design-system.md`](../design-system.md) e [`screens.md`](../screens.md).

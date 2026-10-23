@@ -1,6 +1,6 @@
 import type { Pagamento } from '@/domain/entities';
 import { StatusPagamento } from '@/domain/enums';
-import type { FiltroOpcao } from '@/presentation/features/admin/shared/FiltroPills';
+import type { FiltroOpcao } from '@/presentation/features/admin/shared/filter-option';
 
 export type FiltroPagamento = 'todos' | 'pendentes' | 'pagos' | 'cancelados' | 'estornados';
 

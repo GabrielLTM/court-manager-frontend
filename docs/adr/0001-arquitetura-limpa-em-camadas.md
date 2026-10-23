@@ -58,3 +58,5 @@ A regra é verificada por `npm run lint`: o `eslint.config.js` aplica `no-restri
 - [`reserva.rules.ts`](../../src/domain/rules/reserva.rules.ts): regras puras do domínio.
 - [`architecture.md`](../architecture.md), [`business-rules.md`](../business-rules.md) e [`testing.md`](../testing.md).
 - [ADR-0002](0002-backend-simulado-no-navegador.md) e [ADR-0004](0004-regras-de-negocio-no-dominio.md).
+
+> Nota de migração: exemplos de apresentação neste registro descrevem a implementação original. A apresentação atual segue o [ADR-0009](0009-migracao-angular.md); as decisões de domínio e identidade permanecem válidas.

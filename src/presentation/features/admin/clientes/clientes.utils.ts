@@ -1,7 +1,7 @@
 import type { AtualizarClienteInput, NovoClienteInput } from '@/application/dto';
 import type { Cliente, Reserva } from '@/domain/entities';
 import { StatusCliente } from '@/domain/enums';
-import type { FiltroOpcao } from '@/presentation/features/admin/shared/FiltroPills';
+import type { FiltroOpcao } from '@/presentation/features/admin/shared/filter-option';
 import { normalizarBusca } from '@/presentation/features/admin/shared/format';
 import type { ClienteFormValues } from '@/presentation/validation/schemas';
 import { onlyDigits } from '@/shared/lib/masks';

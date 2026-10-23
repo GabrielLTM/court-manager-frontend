@@ -1,3 +1,13 @@
+# Migração Angular — 2026-10-22
+
+- Apresentação migrada integralmente para Angular 21, com componentes standalone, Router, Forms e Signals.
+- Domínio, casos de uso, mock, formato persistido e adaptadores REST preservados.
+- Rotas de cliente e administrador, CRUD, reserva, alteração, cancelamento, pagamentos e recibos migrados.
+- Testes de lógica preservados; TestBed e Playwright adicionados para a apresentação Angular.
+- Documentação, build, instalação e instruções de desenvolvimento atualizados.
+
+---
+
 # Changelog
 
 Todas as mudanças relevantes deste projeto são registradas neste arquivo.

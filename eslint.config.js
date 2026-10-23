@@ -1,7 +1,5 @@
 import js from '@eslint/js';
 import { defineConfig, globalIgnores } from 'eslint/config';
-import reactHooks from 'eslint-plugin-react-hooks';
-import reactRefresh from 'eslint-plugin-react-refresh';
 import globals from 'globals';
 import tseslint from 'typescript-eslint';
 
@@ -21,14 +19,12 @@ const layer = (files, forbidden, message) => ({
 });
 
 export default defineConfig([
-  globalIgnores(['dist', 'coverage', 'node_modules']),
+  globalIgnores(['dist', 'coverage', 'node_modules', '.angular', 'out-tsc', 'playwright-report', 'test-results']),
   {
     files: ['**/*.{ts,tsx}'],
     extends: [
       js.configs.recommended,
       tseslint.configs.recommended,
-      reactHooks.configs.flat['recommended-latest'],
-      reactRefresh.configs.vite,
     ],
     languageOptions: {
       ecmaVersion: 2023,
@@ -40,17 +36,17 @@ export default defineConfig([
   },
   layer(
     ['src/domain/**'],
-    ['@/application/*', '@/infrastructure/*', '@/presentation/*', '@/di/*', 'react', 'axios'],
+    ['@/application/*', '@/infrastructure/*', '@/presentation/*', '@/di/*', '@angular/*', 'axios'],
     'A camada de domínio é pura: não pode depender de outras camadas nem de frameworks.',
   ),
   layer(
     ['src/application/**'],
-    ['@/infrastructure/*', '@/presentation/*', '@/di/*', 'react', 'axios'],
+    ['@/infrastructure/*', '@/presentation/*', '@/di/*', '@angular/*', 'axios'],
     'A camada de aplicação depende apenas do domínio (e de portas/abstrações).',
   ),
   layer(
     ['src/infrastructure/**'],
-    ['@/presentation/*', '@/di/*', 'react'],
+    ['@/presentation/*', '@/di/*', '@angular/*'],
     'A infraestrutura implementa portas da aplicação e não conhece a UI.',
   ),
   layer(

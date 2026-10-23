@@ -1,6 +1,6 @@
 # ADR-0003 — Estado do servidor com TanStack Query
 
-- **Status:** Aceita
+- **Status:** Substituída por [ADR-0009](0009-migracao-angular.md)
 - **Data:** 2026-09-25
 - **Decisores:** Equipe Ottawa Tech
 
@@ -47,8 +47,10 @@ Usar **TanStack Query 5** para todo o estado que vem do servidor.
 
 ## Referências
 
-- [`keys.ts`](../../src/presentation/queries/keys.ts), [`useInvalidate.ts`](../../src/presentation/queries/useInvalidate.ts) e [`reservas.ts`](../../src/presentation/queries/reservas.ts).
-- [`queryClient.ts`](../../src/presentation/providers/queryClient.ts) e [`AuthProvider.tsx`](../../src/presentation/providers/AuthProvider.tsx).
-- [`AsyncContent.tsx`](../../src/presentation/components/ui/AsyncContent.tsx) e [`renderApp.tsx`](../../src/presentation/app/testing/renderApp.tsx).
+- [`keys.ts`](https://github.com/GabrielLTM/court-manager-frontend/blob/39f9d0ed4abfb254643f84f6868e9666649f31b3/src/presentation/queries/keys.ts), [`useInvalidate.ts`](https://github.com/GabrielLTM/court-manager-frontend/blob/39f9d0ed4abfb254643f84f6868e9666649f31b3/src/presentation/queries/useInvalidate.ts) e [`reservas.ts`](https://github.com/GabrielLTM/court-manager-frontend/blob/39f9d0ed4abfb254643f84f6868e9666649f31b3/src/presentation/queries/reservas.ts).
+- [`queryClient.ts`](https://github.com/GabrielLTM/court-manager-frontend/blob/39f9d0ed4abfb254643f84f6868e9666649f31b3/src/presentation/providers/queryClient.ts) e [`AuthProvider.tsx`](https://github.com/GabrielLTM/court-manager-frontend/blob/39f9d0ed4abfb254643f84f6868e9666649f31b3/src/presentation/providers/AuthProvider.tsx).
+- [`AsyncContent.tsx`](https://github.com/GabrielLTM/court-manager-frontend/blob/39f9d0ed4abfb254643f84f6868e9666649f31b3/src/presentation/components/ui/AsyncContent.tsx) e [`renderApp.tsx`](https://github.com/GabrielLTM/court-manager-frontend/blob/39f9d0ed4abfb254643f84f6868e9666649f31b3/src/presentation/app/testing/renderApp.tsx).
 - [`architecture.md`](../architecture.md) (seções 4 e 5) e [`testing.md`](../testing.md).
 - [ADR-0001](0001-arquitetura-limpa-em-camadas.md).
+
+> Nota de migração: exemplos de apresentação neste registro descrevem a implementação original. A apresentação atual segue o [ADR-0009](0009-migracao-angular.md); as decisões de domínio e identidade permanecem válidas.

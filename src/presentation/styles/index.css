@@ -5,7 +5,7 @@ body { margin: 0; }
 a { color: var(--color-accent-700); }
 /* :where() mantém a especificidade de elemento — classes (.pill, .btn) sempre vencem. */
 a:where(:hover) { color: var(--color-accent); }
-#root { min-height: 100vh; }
+arena-app { min-height: 100vh; }
 
 @keyframes riseIn {
   from { opacity: 0; transform: translateY(6px); }

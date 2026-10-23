@@ -1,6 +1,6 @@
 # ADR-0005 — CSS Modules e design tokens
 
-- **Status:** Aceita
+- **Status:** Substituída por [ADR-0009](0009-migracao-angular.md)
 - **Data:** 2026-09-25
 - **Decisores:** Equipe Ottawa Tech
 
@@ -44,7 +44,9 @@ A interface React precisa de componentes reutilizáveis (`Button`, `Card`, `Dial
 ## Referências
 
 - [`design-system.css`](../../src/presentation/styles/design-system.css) e [`index.css`](../../src/presentation/styles/index.css).
-- [`Button.tsx`](../../src/presentation/components/ui/Button.tsx), [`Button.module.css`](../../src/presentation/components/ui/Button.module.css) e [`Card.tsx`](../../src/presentation/components/ui/Card.tsx).
-- [`main.tsx`](../../src/main.tsx) e [`vite.config.ts`](../../vite.config.ts) (`test.css`).
+- [`Button.tsx`](https://github.com/GabrielLTM/court-manager-frontend/blob/39f9d0ed4abfb254643f84f6868e9666649f31b3/src/presentation/components/ui/Button.tsx), [`Button.module.css`](https://github.com/GabrielLTM/court-manager-frontend/blob/39f9d0ed4abfb254643f84f6868e9666649f31b3/src/presentation/components/ui/Button.module.css) e [`Card.tsx`](https://github.com/GabrielLTM/court-manager-frontend/blob/39f9d0ed4abfb254643f84f6868e9666649f31b3/src/presentation/components/ui/Card.tsx).
+- [`main.tsx`](https://github.com/GabrielLTM/court-manager-frontend/blob/39f9d0ed4abfb254643f84f6868e9666649f31b3/src/main.tsx) e [`vite.config.ts`](../../vite.config.ts) (`test.css`).
 - [`design-system.md`](../design-system.md) e [`architecture.md`](../architecture.md) (seção 10).
 - [ADR-0007](0007-identidade-visual-ottawa-tech.md).
+
+> Nota de migração: exemplos de apresentação neste registro descrevem a implementação original. A apresentação atual segue o [ADR-0009](0009-migracao-angular.md); as decisões de domínio e identidade permanecem válidas.

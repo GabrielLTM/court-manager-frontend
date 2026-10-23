@@ -1,0 +1,11 @@
+{
+  "profile": "product-admin",
+  "sourceRoots": ["src/presentation/angular"],
+  "locale": "pt-BR",
+  "canonicalMap": "UX-CONTRACT.md",
+  "requiredCapabilities": ["Select/Listbox", "Date", "Form", "Scrollbar", "Toast", "CRUD"],
+  "ownership": { "Select/Listbox": "native", "Date": "native" },
+  "requiredCommands": ["unit", "e2e"],
+  "commands": { "unit": "npm test", "e2e": "npm run test:e2e" },
+  "evidence": { "crudFullFlow": "e2e/migration.spec.ts", "failurePaths": "e2e/migration.spec.ts" }
+}

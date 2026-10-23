@@ -1,6 +1,6 @@
 # ADR-0006 — Formulários com React Hook Form e Zod
 
-- **Status:** Aceita
+- **Status:** Substituída por [ADR-0009](0009-migracao-angular.md)
 - **Data:** 2026-09-25
 - **Decisores:** Equipe Ottawa Tech
 
@@ -45,9 +45,11 @@ A Especificação 1.0 (seção 6.1) lista as validações de interface (campos o
 
 ## Referências
 
-- [`schemas.ts`](../../src/presentation/validation/schemas.ts) e [`ClienteFields.tsx`](../../src/presentation/components/forms/ClienteFields.tsx).
-- [`serverErrors.ts`](../../src/presentation/lib/serverErrors.ts) e [`errors.ts`](../../src/presentation/lib/errors.ts).
-- [`CadastroForm.tsx`](../../src/presentation/features/auth/CadastroForm.tsx) e [`ClienteFormDialog.tsx`](../../src/presentation/features/admin/clientes/components/ClienteFormDialog.tsx).
+- [`schemas.ts`](../../src/presentation/validation/schemas.ts) e [`ClienteFields.tsx`](https://github.com/GabrielLTM/court-manager-frontend/blob/39f9d0ed4abfb254643f84f6868e9666649f31b3/src/presentation/components/forms/ClienteFields.tsx).
+- [`serverErrors.ts`](https://github.com/GabrielLTM/court-manager-frontend/blob/39f9d0ed4abfb254643f84f6868e9666649f31b3/src/presentation/lib/serverErrors.ts) e [`errors.ts`](../../src/presentation/lib/errors.ts).
+- [`CadastroForm.tsx`](https://github.com/GabrielLTM/court-manager-frontend/blob/39f9d0ed4abfb254643f84f6868e9666649f31b3/src/presentation/features/auth/CadastroForm.tsx) e [`ClienteFormDialog.tsx`](https://github.com/GabrielLTM/court-manager-frontend/blob/39f9d0ed4abfb254643f84f6868e9666649f31b3/src/presentation/features/admin/clientes/components/ClienteFormDialog.tsx).
 - [`validarDadosCliente.ts`](../../src/application/use-cases/validarDadosCliente.ts) e [`masks.ts`](../../src/shared/lib/masks.ts).
 - [`architecture.md`](../architecture.md) (seção 7) e [`screens.md`](../screens.md).
 - [ADR-0004](0004-regras-de-negocio-no-dominio.md).
+
+> Nota de migração: exemplos de apresentação neste registro descrevem a implementação original. A apresentação atual segue o [ADR-0009](0009-migracao-angular.md); as decisões de domínio e identidade permanecem válidas.

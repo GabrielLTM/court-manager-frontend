@@ -8,12 +8,14 @@ Este diretório guarda as decisões arquiteturais do frontend da Arena Beach Ten
 | --- | --- | --- | --- |
 | [0001](0001-arquitetura-limpa-em-camadas.md) | Arquitetura limpa em camadas | Aceita | 2026-09-25 |
 | [0002](0002-backend-simulado-no-navegador.md) | Backend simulado no navegador | Aceita | 2026-09-25 |
-| [0003](0003-estado-do-servidor-com-tanstack-query.md) | Estado do servidor com TanStack Query | Aceita | 2026-09-25 |
+| [0003](0003-estado-do-servidor-com-tanstack-query.md) | Estado do servidor com TanStack Query | Substituída por 0009 | 2026-09-25 |
 | [0004](0004-regras-de-negocio-no-dominio.md) | Regras de negócio no domínio | Aceita | 2026-09-25 |
-| [0005](0005-css-modules-e-design-tokens.md) | CSS Modules e design tokens | Aceita | 2026-09-25 |
-| [0006](0006-formularios-com-react-hook-form-e-zod.md) | Formulários com React Hook Form e Zod | Aceita | 2026-09-25 |
+| [0005](0005-css-modules-e-design-tokens.md) | CSS Modules e design tokens | Substituída por 0009 | 2026-09-25 |
+| [0006](0006-formularios-com-react-hook-form-e-zod.md) | Formulários com React Hook Form e Zod | Substituída por 0009 | 2026-09-25 |
 | [0007](0007-identidade-visual-ottawa-tech.md) | Identidade visual Ottawa Tech | Aceita | 2026-09-28 |
 | [0008](0008-contrato-de-dados-enums-numericos-e-datas-iso.md) | Contrato de dados: enums numéricos e datas ISO | Aceita | 2026-09-25 |
+
+| [0009](0009-migracao-angular.md) | Migração da apresentação para Angular | Aceita | 2026-10-22 |
 
 ## Legenda de status
 

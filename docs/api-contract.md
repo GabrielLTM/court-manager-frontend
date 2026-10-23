@@ -9,7 +9,7 @@ modo `VITE_API_MODE=http` (adaptadores em `src/infrastructure/http`). O backend 
 
 | Item | Formato |
 | --- | --- |
-| Base URL | `/api` — em desenvolvimento o Vite repassa `/api/*` para `VITE_BACKEND_URL` (padrão `http://localhost:5160`, perfil `http` do `launchSettings.json`), sem CORS. |
+| Base URL | `/api` — em desenvolvimento o servidor Angular repassa `/api/*` para `VITE_BACKEND_URL` (padrão `http://localhost:5160`, perfil `http` do `launchSettings.json`), sem CORS. |
 | JSON | camelCase (padrão do `System.Text.Json`). |
 | Datas (`DateOnly`) | `"2026-09-20"` |
 | Horários (`TimeOnly`) | o frontend envia `"19:00:00"`; aceita `"19:00"` ou `"19:00:00"` na resposta. |

@@ -71,3 +71,7 @@ Estes documentos orientaram o desenvolvimento, mas **não fazem parte do reposit
 A documentação muda no mesmo pull request que o código. A tabela "Documentação" do
 [guia de contribuição](../CONTRIBUTING.md#documentação) diz qual documento atualizar para cada tipo de mudança.
 Decisões de arquitetura novas viram um [ADR](adr/README.md); ADRs aceitos não são reescritos.
+
+## Migração Angular
+
+A apresentação atual usa Angular. Consulte [relatório de migração](angular-migration.md), [ADR-0009](adr/0009-migracao-angular.md), [DESIGN.md](../DESIGN.md) e [UX-CONTRACT.md](../UX-CONTRACT.md). ADRs substituídos preservam o contexto histórico da versão React.
