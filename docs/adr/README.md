@@ -14,8 +14,9 @@ Este diretório guarda as decisões arquiteturais do frontend da Arena Beach Ten
 | [0006](0006-formularios-com-react-hook-form-e-zod.md) | Formulários com React Hook Form e Zod | Substituída por 0009 | 2026-09-25 |
 | [0007](0007-identidade-visual-ottawa-tech.md) | Identidade visual Ottawa Tech | Aceita | 2026-09-28 |
 | [0008](0008-contrato-de-dados-enums-numericos-e-datas-iso.md) | Contrato de dados: enums numéricos e datas ISO | Aceita | 2026-09-25 |
-
 | [0009](0009-migracao-angular.md) | Migração da apresentação para Angular | Aceita | 2026-10-22 |
+| [0010](0010-organizacao-das-pastas-por-dominio.md) | Organização das pastas por domínio | Aceita | 2026-11-06 |
+| [0011](0011-testes-fora-do-repositorio.md) | Testes fora do repositório | Aceita | 2026-11-07 |
 
 ## Legenda de status
 
@@ -33,7 +34,7 @@ Escreva um ADR quando a decisão for difícil de reverter, atravessar mais de um
 
 1. Escolha o próximo número sequencial (quatro dígitos) e crie `NNNN-titulo-em-kebab-case.md` nesta pasta.
 2. Copie o modelo abaixo e preencha todas as seções. Use português, um único título `#` e blocos de código com a linguagem indicada.
-3. Fundamente os fatos no repositório, com links relativos para arquivos (por exemplo, `../../src/di/container.ts`) e documentos. Cite a Especificação 1.0 por seção, pois ela não está no repositório.
+3. Fundamente os fatos no repositório, com links relativos para arquivos (por exemplo, `src/core/di/container.ts`) e documentos. Cite a Especificação 1.0 por seção, pois ela não está no repositório.
 4. Registre consequências **positivas e negativas** e não invente motivações: se o motivo de uma escolha não está documentado, descreva a decisão e as consequências. Em "Alternativas consideradas", registre opções comparáveis e o motivo técnico verificável para não adotá-las.
 5. Adicione a linha ao índice acima e, se for o caso, cite o ADR em [architecture.md](../architecture.md).
 6. Não reescreva um ADR aceito. Para mudar uma decisão, crie um novo ADR e marque o antigo como "Substituída por ADR-NNNN" (só o status e o link do antigo mudam).

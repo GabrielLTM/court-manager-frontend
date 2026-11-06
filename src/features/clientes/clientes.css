@@ -1,0 +1,8 @@
+@media (max-width: 650px) {
+  .toolbar input {
+    width: 100%;
+  }
+  .toolbar select {
+    flex: 1;
+  }
+}

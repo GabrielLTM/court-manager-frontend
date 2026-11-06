@@ -1,5 +1,5 @@
 <div align="center">
-<img src="src/presentation/assets/ottawa-tech-simbolo.jpg" alt="Ottawa Tech" width="96" />
+<img src="src/shared/assets/ottawa-tech-simbolo.jpg" alt="Ottawa Tech" width="96" />
 
 # Arena Beach Tennis — Angular
 
@@ -37,7 +37,7 @@ Os botões **Acessar como** preenchem as contas. Em modo mock, **Cliente / Admin
 - Estados de carregamento, erro e lista vazia; prevenção de envio duplicado; validação por campo; confirmação de ações destrutivas; proteção de alterações não salvas; interface em pt-BR e moeda BRL.
 - Tema Ottawa Tech, fontes locais Sora/Figtree e layout responsivo.
 
-O modo HTTP mantém o contrato REST ASP.NET Core. A disponibilidade da API real depende de um backend compatível; os testes do modo mock não comprovam essa integração externa.
+O modo HTTP mantém o contrato REST ASP.NET Core. A disponibilidade da API real depende de um backend compatível; essa integração externa não foi testada.
 
 ## Comandos
 
@@ -48,9 +48,6 @@ O modo HTTP mantém o contrato REST ASP.NET Core. A disponibilidade da API real 
 | `npm run preview` | Servir o build de `dist/court-manager/browser` |
 | `npm run typecheck` | Angular compiler (`ngc --noEmit`), incluindo templates |
 | `npm run lint` | ESLint e fronteiras entre camadas |
-| `npm test` | Regressão de lógica e componentes Angular (Vitest/TestBed) |
-| `npm run test:watch` | Testes em observação |
-| `npm run test:e2e` | Fluxos reais no Chromium (Playwright) |
 | `npm run format` | Formatação com Prettier |
 
 ## Configuração
@@ -79,29 +76,38 @@ O acesso sem sessão redireciona para login. O perfil incorreto retorna à próp
 flowchart BT
  application[Casos de uso e portas] --> domain[Domínio e regras RN01–RN10]
  infrastructure[HTTP, mock, armazenamento e relógio] --> application
- presentation[Componentes Angular, Router, Forms e Signals] --> application
+ interface[Telas Angular: app, features e shared] --> application
  di[Composition root] --> infrastructure
- di --> presentation
+ di --> interface
 ```
 
-`src/main.ts` inicia `bootstrapApplication`. O token `APP_SERVICES` injeta a fachada dos casos de uso. As camadas de domínio, aplicação e infraestrutura permanecem independentes do Angular. A apresentação não importa axios nem repositórios.
+`src/main.ts` inicia `bootstrapApplication`. O token `APP_SERVICES` injeta a fachada dos casos de uso. As camadas de `src/core/` (domínio, aplicação e infraestrutura) permanecem independentes do Angular. As telas não importam axios nem repositórios.
+
+A interface é organizada por domínio: o que é de uma tela fica junto. A tela de quadras, por exemplo, é `src/features/quadras/quadras.ts` (componente), `quadras.html` (template) e `quadras.css` (estilos só dela), ao lado da sua lógica (`quadras.utils.ts`), da validação (`quadras.schemas.ts`) e dos testes. Veja o [ADR-0010](docs/adr/0010-organizacao-das-pastas-por-dominio.md).
 
 ```text
 src/
-  domain/                  entidades, enums e regras
-  application/             DTOs, portas e casos de uso
-  infrastructure/          HTTP, backend simulado, sessão e relógio
-  di/                      montagem dos adaptadores
+  app/                     casca: app.ts/.html/.css, rotas, estado global, guards e página 404
+  features/                uma pasta por domínio, com tudo o que é das telas dele
+    auth/                  login e cadastro
+    reservas/              reservar/, minhas-reservas/ e grade/ (uma subpasta por tela)
+    quadras/               quadras.ts, quadras.html, quadras.css, quadras.utils.ts, quadras.schemas.ts
+    clientes/              clientes (administrador) e meus-dados
+    pagamentos/            pagamentos e ajuda dos métodos de pagamento
+    dashboard/             indicadores e ocupação
+  shared/                  o que várias telas usam
+    ui/                    diálogo, formulário, paginação e AsyncPage
+    styles/                design tokens, global.css e fontes locais
+    lib/                   datas, moeda, horários e máscaras
+  core/                    núcleo sem Angular
+    domain/                entidades, enums e regras RN01–RN10
+    application/           DTOs, portas e casos de uso
+    infrastructure/        HTTP, backend simulado, sessão e relógio
+    di/                    montagem dos adaptadores
   config/                  configuração pública e contas demo
-  presentation/angular/    componentes standalone, rotas, estado e UI compartilhada
-  presentation/features/   lógica pura de exibição e testes de regressão
-  presentation/validation/ esquemas Zod compartilhados
-  presentation/styles/     design tokens e fontes locais
-  shared/                  datas, moeda, horários e máscaras
   main.ts                  bootstrap Angular
 scripts/ng.mjs             configuração compatível com .env e proxy
 angular.json               workspace Angular
-vite.config.ts             configuração exclusiva dos testes Vitest
 ```
 
 ## Verificação
@@ -109,12 +115,10 @@ vite.config.ts             configuração exclusiva dos testes Vitest
 ```bash
 npm run lint
 npm run typecheck
-npm test
 npm run build
-npm run test:e2e
 ```
 
-O E2E usa `/usr/bin/chromium` no ambiente de nuvem. Em outra máquina, defina `CHROMIUM_PATH` com o caminho do Chromium/Chrome instalado. Veja [testes](docs/testing.md) e [relatório de migração](docs/angular-migration.md).
+Os testes ficam só na cópia local, fora do repositório. Veja [testes](docs/testing.md) e [relatório de migração](docs/angular-migration.md).
 
 ## Documentação
 

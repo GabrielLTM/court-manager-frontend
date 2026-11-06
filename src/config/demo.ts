@@ -1,4 +1,4 @@
-import { Perfil } from '@/domain/enums';
+import { Perfil } from '@/core/domain/enums';
 
 /** Contas de demonstração semeadas no backend simulado (modo mock). */
 export const CONTAS_DEMO = {

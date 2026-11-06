@@ -1,0 +1,22 @@
+<h1>Meus dados</h1>
+@if (loading()) {
+  <p role="status">Carregando cadastro…</p>
+}
+@if (error()) {
+  <p role="alert">{{ error() }}</p>
+  <button class="btn" (click)="load()">Tentar novamente</button>
+}
+@if (initial(); as data) {
+  <section class="card">
+    <p class="kicker">Seu cadastro</p>
+    <h2>Atualizar seus dados</h2>
+    <p>Mantenha seus dados de contato em dia. Deixe a senha vazia para manter a atual.</p>
+    <arena-form
+      [fields]="fields"
+      [schema]="schema"
+      [initial]="data"
+      [busy]="busy()"
+      (saved)="save($event)"
+    />
+  </section>
+}

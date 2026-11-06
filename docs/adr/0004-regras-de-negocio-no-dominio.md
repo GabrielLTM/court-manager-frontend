@@ -12,7 +12,7 @@ No frontend, as mesmas regras são necessárias em três pontos: na interface (g
 
 ## Decisão
 
-- Implementar as regras como **funções puras e tipadas** em `domain/rules/` (`cliente.rules.ts`, `quadra.rules.ts`, `reserva.rules.ts` e `pagamento.rules.ts`), sobre entidades que são dados simples (interfaces).
+- Implementar as regras como **funções puras e tipadas** em `core/domain/rules/` (`cliente.rules.ts`, `quadra.rules.ts`, `reserva.rules.ts` e `pagamento.rules.ts`), sobre entidades que são dados simples (interfaces).
 - Centralizar os parâmetros operacionais em `REGRAS_RESERVA`: funcionamento das 07:00 às 22:00, durações de 60, 90 e 120 minutos, janela de 30 dias e antecedência de cancelamento de 4 horas.
 - Representar violações com `DomainError`, que carrega `regra: CodigoRegra` (`RN01` a `RN10` ou `VALIDACAO`).
 - Nunca ler o relógio dentro do domínio: as funções recebem `agora: Date`, fornecido pelo `Clock` injetado.
@@ -26,7 +26,7 @@ No frontend, as mesmas regras são necessárias em três pontos: na interface (g
 
 **Positivas**
 
-- As regras são testáveis sem DOM, com datas determinísticas (`domain/rules/__tests__`).
+- As regras são testáveis sem DOM, com datas determinísticas (`core/domain/rules/__tests__`).
 - Há uma fonte única para a interface, os casos de uso e o mock, então o comportamento é idêntico nos três pontos.
 - Entidades como dados simples são serializáveis em JSON (HTTP e `localStorage`) e copiáveis com `clonar`.
 
@@ -46,8 +46,8 @@ No frontend, as mesmas regras são necessárias em três pontos: na interface (g
 
 ## Referências
 
-- [`reserva.rules.ts`](../../src/domain/rules/reserva.rules.ts), [`cliente.rules.ts`](../../src/domain/rules/cliente.rules.ts), [`pagamento.rules.ts`](../../src/domain/rules/pagamento.rules.ts) e [`quadra.rules.ts`](../../src/domain/rules/quadra.rules.ts).
-- [`DomainError.ts`](../../src/domain/errors/DomainError.ts) e [`clock.ts`](../../src/application/ports/clock.ts).
-- [`validacaoReserva.ts`](../../src/application/use-cases/validacaoReserva.ts) e [`agendamento.ts`](../../src/infrastructure/mock/agendamento.ts).
+- [`reserva.rules.ts`](../../src/core/domain/rules/reserva.rules.ts), [`cliente.rules.ts`](../../src/core/domain/rules/cliente.rules.ts), [`pagamento.rules.ts`](../../src/core/domain/rules/pagamento.rules.ts) e [`quadra.rules.ts`](../../src/core/domain/rules/quadra.rules.ts).
+- [`DomainError.ts`](../../src/core/domain/errors/DomainError.ts) e [`clock.ts`](../../src/core/application/ports/clock.ts).
+- [`validacaoReserva.ts`](../../src/core/application/use-cases/validacaoReserva.ts) e [`agendamento.ts`](../../src/core/infrastructure/mock/agendamento.ts).
 - [`business-rules.md`](../business-rules.md), [`api-contract.md`](../api-contract.md) e [`testing.md`](../testing.md).
 - [ADR-0001](0001-arquitetura-limpa-em-camadas.md) e [ADR-0006](0006-formularios-com-react-hook-form-e-zod.md).

@@ -9,3 +9,13 @@ coverage
 out-tsc/
 playwright-report/
 test-results/
+
+# Testes: ficam só na cópia local, fora do repositório (ADR-0011)
+__tests__/
+/e2e/
+/src/test/
+/src/app/testing/
+/vite.config.ts
+/playwright.config.ts
+/tsconfig.tests.json
+/scripts/capture-screens.mjs

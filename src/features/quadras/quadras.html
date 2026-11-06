@@ -1,0 +1,50 @@
+<div class="page-heading">
+  <h1>Quadras</h1>
+  <button class="btn btn-primary" (click)="edit(null)">+ Nova quadra</button>
+</div>
+@if (loading()) {
+  <p role="status">Carregando quadras…</p>
+}
+@if (error()) {
+  <p role="alert">{{ error() }}</p>
+  <button class="btn" (click)="load()">Tentar novamente</button>
+}
+<div class="card-grid">
+  @for (q of courts(); track q.id) {
+    <article class="card">
+      <p class="kicker">{{ q.tipo }}</p>
+      <h2>{{ q.nome }}</h2>
+      <span class="tag">{{ labels[q.status] }}</span>
+      <p class="price">{{ money(q.valorHora) }} <small>/ hora</small></p>
+      <div class="court-art small" aria-hidden="true"><div></div></div>
+      <button class="btn" (click)="edit(q)" [attr.aria-label]="'Editar ' + q.nome">Editar</button>
+      <div class="actions">
+        @for (a of actions; track a.status) {
+          <button
+            class="btn"
+            [disabled]="busy() || q.status === a.status"
+            (click)="status(q, a.status)"
+          >
+            {{ a.rotulo }}
+          </button>
+        }
+      </div>
+    </article>
+  } @empty {
+    <p>Nenhuma quadra cadastrada.</p>
+  }
+</div>
+@if (editing() !== undefined) {
+  <arena-dialog
+    [title]="editing() ? 'Editar ' + editing()!.nome : 'Nova quadra'"
+    [busy]="busy()"
+    (closed)="close()"
+    ><arena-form
+      [fields]="fields"
+      [schema]="schema"
+      [initial]="form()"
+      [busy]="busy()"
+      [submitLabel]="editing() ? 'Salvar alterações' : 'Cadastrar quadra'"
+      (saved)="save($event)"
+  /></arena-dialog>
+}

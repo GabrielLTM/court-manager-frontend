@@ -1,0 +1,15 @@
+<dialog #dialog [class.wide]="wide" [attr.aria-labelledby]="titleId" (cancel)="cancel($event)">
+  <div class="dialog-head">
+    <h2 [id]="titleId">{{ title }}</h2>
+    <button
+      type="button"
+      class="btn"
+      aria-label="Fechar diálogo"
+      [disabled]="busy"
+      (click)="closed.emit()"
+    >
+      ×
+    </button>
+  </div>
+  <ng-content />
+</dialog>

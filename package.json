@@ -11,9 +11,9 @@
     "dev": "node scripts/ng.mjs serve --host 0.0.0.0 --port 5173",
     "build": "node scripts/ng.mjs build",
     "preview": "vite preview --outDir dist/court-manager/browser",
-    "typecheck": "ngc -p tsconfig.app.json --noEmit && tsc -p tsconfig.tests.json",
+    "typecheck": "ngc -p tsconfig.app.json --noEmit",
     "lint": "eslint .",
-    "format": "prettier --write \"src/**/*.{ts,html,css}\" \"e2e/**/*.ts\"",
+    "format": "prettier --write \"src/**/*.{ts,html,css}\"",
     "test": "vitest run",
     "test:watch": "vitest",
     "test:e2e": "playwright test"

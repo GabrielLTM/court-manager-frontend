@@ -6,13 +6,26 @@ A aplicação usa Angular 21 com componentes standalone, Angular Router, Angular
 
 | Camada | Responsabilidade | Dependências |
 | --- | --- | --- |
-| `domain` | Entidades, enums numéricos, RN01–RN10 | Nenhum framework ou HTTP |
-| `application` | Casos de uso, DTOs, `AppServices`, portas `SessionStore` e `Clock` | Domínio |
-| `infrastructure` | Adaptadores REST axios, backend mock, localStorage, relógio | Aplicação e domínio |
-| `presentation` | Componentes Angular, rotas, formulários, estado e lógica de exibição | Aplicação e domínio |
-| `di` | Escolha mock/HTTP e montagem dos serviços | Adaptadores e aplicação |
+| `core/domain` | Entidades, enums numéricos, RN01–RN10 | Nenhum framework ou HTTP |
+| `core/application` | Casos de uso, DTOs, `AppServices`, portas `SessionStore` e `Clock` | Domínio |
+| `core/infrastructure` | Adaptadores REST axios, backend mock, localStorage, relógio | Aplicação e domínio |
+| `app`, `features`, `shared` | Componentes Angular, rotas, formulários, estado e lógica de exibição | Aplicação e domínio |
+| `core/di` | Escolha mock/HTTP e montagem dos serviços | Adaptadores e aplicação |
 
-O ESLint impõe as fronteiras por aliases `@/`. Os casos de uso, a infraestrutura e seus testes de regressão foram preservados durante a migração. As funções puras em `presentation/features/**/*.utils.ts` continuam testadas sem UI.
+O ESLint impõe as fronteiras por aliases `@/`. Os casos de uso e a infraestrutura foram preservados durante a migração. A lógica pura de cada tela fica em `features/**/*.utils.ts`, fora dos componentes.
+
+## Pastas
+
+A interface é organizada por domínio ([ADR-0010](adr/0010-organizacao-das-pastas-por-dominio.md)): o que é de uma tela fica junto.
+
+| Pasta | Conteúdo |
+| --- | --- |
+| `src/features/<domínio>/` | As telas do domínio. Cada tela tem `<tela>.ts` (componente), `<tela>.html` (template) e, quando tem estilo próprio, `<tela>.css`; ao lado ficam a lógica pura (`*.utils.ts`) e a validação (`*.schemas.ts`). Domínios: `auth`, `reservas` (com `reservar/`, `minhas-reservas/` e `grade/`), `quadras`, `clientes`, `pagamentos` e `dashboard`. |
+| `src/shared/` | O que várias telas usam: `ui/` (`DialogComponent`, `EditorComponent`, `PaginationComponent`, `AsyncPage`), `styles/` (tokens, `global.css` e fontes), `assets/` e `lib/`. |
+| `src/app/` | A casca: `app.ts`/`.html`/`.css`, `app.routes.ts` (rotas e guards), `app-state.ts` (sessão, avisos e confirmação) e página 404. |
+| `src/core/` | O núcleo sem Angular: `domain/`, `application/`, `infrastructure/` e `di/`. |
+
+Os componentes usam `templateUrl` e `styleUrl`. Os estilos de um componente valem só para o template dele (encapsulamento padrão do Angular); classes usadas por várias telas, como `.btn`, `.card` e `.tag`, ficam em `src/shared/styles/global.css`.
 
 ## Bootstrap e injeção
 
@@ -22,7 +35,7 @@ O ESLint impõe as fronteiras por aliases `@/`. Os casos de uso, a infraestrutur
 
 ## Dados assíncronos
 
-Cada página possui seus dados; não há cache de servidor global compartilhado entre perfis. `AsyncPage.request` expõe carregamento, erro e retry e usa um contador para descartar respostas de requisições antigas ou páginas destruídas. Após uma mutação, a página relê seus dados; navegar para outra tela faz uma leitura nova. `BookingComponent` aplica a mesma proteção às consultas de disponibilidade. Mutações não são repetidas automaticamente, evitando duplicação de pagamentos e reservas.
+Cada página possui seus dados; não há cache de servidor global compartilhado entre perfis. `AsyncPage.request` expõe carregamento, erro e retry e usa um contador para descartar respostas de requisições antigas ou páginas destruídas. Após uma mutação, a página relê seus dados; navegar para outra tela faz uma leitura nova. `ReservarComponent` aplica a mesma proteção às consultas de disponibilidade. Mutações não são repetidas automaticamente, evitando duplicação de pagamentos e reservas.
 
 ## Formulários e acessibilidade
 
@@ -44,4 +57,4 @@ Reserva e pagamento continuam sendo operações distintas no contrato HTTP. Falh
 
 Angular CLI compila templates AOT e produz `dist/court-manager/browser`. `scripts/ng.mjs` lê `.env`, arquivos por modo e variáveis do processo com a precedência do loader Vite, mantendo os nomes públicos existentes `VITE_*`. O objeto `ARENA_ENV` é definido em build. O proxy de desenvolvimento é gerado em `.angular/proxy.json` (ignorado pelo Git) e mantém verificação TLS.
 
-`vite.config.ts` serve apenas ao Vitest. `src/test/setup.ts` inicializa o TestBed e limpa o estado entre testes. Playwright executa a aplicação Angular real no Chromium. Consulte [testing.md](testing.md).
+Os testes ficam fora do repositório, só na cópia local; veja [testing.md](testing.md).

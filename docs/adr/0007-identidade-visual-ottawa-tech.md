@@ -16,7 +16,7 @@ A mudança foi feita no commit `a56a1cd`:
 
 - **Tokens** (`design-system.css`): mantidos os nomes `--color-*`, com `color-scheme: dark` e novos valores. As rampas `neutral`, `accent` e `accent-2` foram refeitas para fundo escuro (o passo `100` é o mais próximo do fundo e o `900` o mais claro). O botão primário passou a usar `--gradient-brand` (ciano para violeta) e `--gradient-brand-hover`, e as sombras viraram contorno fino mais escuridão ambiente.
 - **Fontes**: os títulos usam Sora, auto-hospedada pelo pacote `@fontsource-variable/sora` (importado no CSS e declarado em `package.json`), com `--font-heading-weight` de 600. A Caprasimo e seus arquivos `woff2` foram removidos; a Figtree continua em `styles/fonts`.
-- **Marca**: `BrandMark` exibe o símbolo (`presentation/assets/ottawa-tech-simbolo.jpg`) e "Arena Beach Tennis", com a assinatura "by Ottawa Tech" no tamanho `lg` (tela de login). Favicon e `apple-touch-icon` em PNG, gerados a partir do logo, substituem o `favicon.svg`; `index.html` passa a ter `theme-color` `#040813` e a descrição "Arena Beach Tennis by Ottawa Tech".
+- **Marca**: `BrandMark` exibe o símbolo (`shared/assets/ottawa-tech-simbolo.jpg`) e "Arena Beach Tennis", com a assinatura "by Ottawa Tech" no tamanho `lg` (tela de login). Favicon e `apple-touch-icon` em PNG, gerados a partir do logo, substituem o `favicon.svg`; `index.html` passa a ter `theme-color` `#040813` e a descrição "Arena Beach Tennis by Ottawa Tech".
 - **Textos**: `PageHeader` deixou de exibir a tag de rota; as dicas de endpoint (por exemplo, "POST /api/auth/login") saíram das telas; os avisos de quadra indisponível (`avisoQuadraIndisponivel`) e de cancelamento foram reescritos sem códigos de regra; a tag "MVP — Sprint 1 a 6" saiu do login.
 - **Testes**: atualizados para os novos textos, com um teste novo para o aviso de quadra indisponível.
 
@@ -45,9 +45,9 @@ A mudança foi feita no commit `a56a1cd`:
 
 ## Referências
 
-- [`design-system.css`](../../src/presentation/styles/design-system.css): tokens e fontes.
+- [`design-system.css`](../../src/shared/styles/design-system.css): tokens e fontes.
 - [`BrandMark.tsx`](https://github.com/GabrielLTM/court-manager-frontend/blob/39f9d0ed4abfb254643f84f6868e9666649f31b3/src/presentation/components/ui/BrandMark.tsx) e [`BrandMark.module.css`](https://github.com/GabrielLTM/court-manager-frontend/blob/39f9d0ed4abfb254643f84f6868e9666649f31b3/src/presentation/components/ui/BrandMark.module.css).
-- [`ottawa-tech-simbolo.jpg`](../../src/presentation/assets/ottawa-tech-simbolo.jpg), [`favicon.png`](../../public/favicon.png) e [`apple-touch-icon.png`](../../public/apple-touch-icon.png).
+- [`ottawa-tech-simbolo.jpg`](../../src/shared/assets/ottawa-tech-simbolo.jpg), [`favicon.png`](../../public/favicon.png) e [`apple-touch-icon.png`](../../public/apple-touch-icon.png).
 - [`index.html`](../../index.html) e [`package.json`](../../package.json).
 - [`design-system.md`](../design-system.md) e [`screens.md`](../screens.md).
 - [ADR-0005](0005-css-modules-e-design-tokens.md).

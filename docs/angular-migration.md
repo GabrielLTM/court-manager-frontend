@@ -13,16 +13,16 @@ A apresentação foi substituída por Angular 21: bootstrap standalone, Router c
 | Entrar, criar conta e acesso demo | AuthComponent, EditorComponent, AppState | E2E de acesso e cadastro; erros RN02 por campo |
 | Autorização e origem após login | authenticated/publicOnly e access.ts | Testes de guards, regressão de access.ts e E2E de perfis |
 | Sessão, expiração, abas e perfil | SessionStore preservado e AppState | Suíte de armazenamento e E2E de logout entre abas |
-| Cadastro e senha opcional | ProfileComponent e EditorComponent | E2E de atualização e login com senha mantida |
-| Disponibilidade e reserva | BookingComponent e regras preservadas | Regressão de slots e E2E com confirmação Pix/dinheiro |
-| Histórico e estatísticas do cliente | ReservationsComponent e utilitários preservados | Suíte de utilitários, E2E e captura atual |
+| Cadastro e senha opcional | MeusDadosComponent e EditorComponent | E2E de atualização e login com senha mantida |
+| Disponibilidade e reserva | ReservarComponent e regras preservadas | Regressão de slots e E2E com confirmação Pix/dinheiro |
+| Histórico e estatísticas do cliente | MinhasReservasComponent e utilitários preservados | Suíte de utilitários, E2E e captura atual |
 | Cancelamento e estorno | Casos de uso preservados e confirmação compartilhada | Testes de domínio/mock e E2E de ciclo financeiro |
-| Alteração administrativa | GradeComponent e BookingComponent reutilizado | E2E de alteração; bloqueio RN07 de mudança de valor pago |
+| Alteração administrativa | GradeComponent e ReservarComponent reutilizado | E2E de alteração; bloqueio RN07 de mudança de valor pago |
 | Dashboard por data e ocupação | DashboardComponent | Regressão do caso de uso/indicadores e navegação E2E |
 | Grade diária e detalhes | GradeComponent e montarGrade | Regressão da grade e E2E com detalhe/alteração |
-| Quadras: criar, editar, status | CourtsComponent | E2E de criação, edição e manutenção |
-| Clientes: CRUD lógico, busca e filtros | ClientsComponent | Regressão dos filtros, E2E de criação/edição/status/paginação |
-| Pagamentos, confirmação e recibo | PaymentsComponent | Regressão de totais, E2E de recebimento e recibo |
+| Quadras: criar, editar, status | QuadrasComponent | E2E de criação, edição e manutenção |
+| Clientes: CRUD lógico, busca e filtros | ClientesComponent | Regressão dos filtros, E2E de criação/edição/status/paginação |
+| Pagamentos, confirmação e recibo | PagamentosComponent | Regressão de totais, E2E de recebimento e recibo |
 | Loading, erro, retry e envio único | AsyncPage e EditorComponent | Testes de concorrência, retry, busy e validação |
 | Erro de página, 404 e recuperação | AppErrorHandler, NavigationError e NotFoundComponent | Build/checagem estrita, E2E de 404 e ausência de erros de runtime |
 | Teclado, formulários e mobile | Primitivas compartilhadas e CSS responsivo | TestBed e E2E a 375px, Escape, senha e select |

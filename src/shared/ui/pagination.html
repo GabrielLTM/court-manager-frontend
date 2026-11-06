@@ -1,0 +1,5 @@
+<nav class="pagination" aria-label="Paginação">
+  <span>{{ total }} registros · Página {{ page }} de {{ count }}</span
+  ><button class="btn" [disabled]="page <= 1" (click)="changed.emit(page - 1)">Anterior</button
+  ><button class="btn" [disabled]="page >= count" (click)="changed.emit(page + 1)">Próxima</button>
+</nav>

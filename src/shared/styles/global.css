@@ -1,0 +1,269 @@
+/* Estilos usados por várias telas. O que é de uma tela só fica no .css dela. */
+:root {
+  --scrollbar-thumb: var(--color-neutral-500);
+  --scrollbar-track: var(--color-surface);
+  scrollbar-gutter: stable;
+}
+* {
+  scrollbar-color: var(--scrollbar-thumb) var(--scrollbar-track);
+  scrollbar-width: thin;
+}
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+::-webkit-scrollbar-track {
+  background: var(--scrollbar-track);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--scrollbar-thumb);
+  border: 2px solid var(--scrollbar-track);
+  border-radius: 8px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-neutral-700);
+}
+@media (forced-colors: active) {
+  * {
+    scrollbar-color: auto;
+  }
+}
+small {
+  display: block;
+  color: var(--color-neutral-700);
+  font-size: 13px;
+}
+h1 {
+  font-size: clamp(28px, 4vw, 38px);
+  margin-bottom: var(--space-6);
+}
+h2 {
+  font-size: 22px;
+}
+.card {
+  display: block;
+  background: var(--color-surface);
+  border: 1px solid var(--color-divider);
+  padding: var(--space-6);
+  margin-bottom: var(--space-4);
+  box-shadow: var(--shadow-sm);
+  border-radius: var(--radius-lg);
+}
+.page-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-4);
+  flex-wrap: wrap;
+}
+.page-heading h1 {
+  margin-bottom: 0;
+}
+.page-heading {
+  margin-bottom: var(--space-6);
+}
+.actions,
+.toolbar {
+  display: flex;
+  gap: var(--space-2);
+  align-items: center;
+  flex-wrap: wrap;
+}
+.toolbar {
+  margin-block: var(--space-4);
+}
+.actions {
+  margin-top: var(--space-3);
+}
+.btn {
+  min-height: 42px;
+  border: 1px solid var(--color-neutral-400);
+  white-space: normal;
+  text-align: center;
+}
+.btn-primary {
+  border: 0;
+  font-weight: 700;
+  background: var(--gradient-brand);
+  color: #040813;
+}
+.btn-primary:hover {
+  color: #040813;
+}
+.btn-danger {
+  background: var(--color-neutral-100);
+  border-color: #ff8799;
+  color: #ffb0bc;
+}
+.btn.selected {
+  border-color: var(--color-accent);
+  background: var(--color-accent-100);
+  color: var(--color-accent-700);
+}
+.btn[aria-disabled='true'] {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+.btn:focus-visible,
+a:focus-visible,
+input:focus-visible,
+select:focus-visible {
+  outline: 3px solid var(--color-accent-700);
+  outline-offset: 3px;
+}
+button,
+input,
+select {
+  font: inherit;
+}
+input,
+select {
+  min-height: 44px;
+  max-width: 100%;
+  color: var(--color-text);
+  border: 1px solid var(--color-neutral-400);
+  border-radius: var(--radius-sm);
+  padding: 10px 12px;
+  background: var(--color-bg);
+}
+select {
+  appearance: auto;
+}
+label {
+  font-weight: 600;
+  display: block;
+}
+.field-error {
+  color: #ffb0bc;
+  margin: 0;
+  font-size: 13px;
+}
+[aria-invalid='true'] {
+  border-color: #ff8799;
+}
+textarea {
+  resize: none;
+}
+.stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: var(--space-4);
+  margin-block: var(--space-6);
+}
+.stats .card {
+  margin: 0;
+}
+.stats p {
+  margin: 0 0 10px;
+}
+.stats strong {
+  font-family: var(--font-heading);
+  font-size: 28px;
+}
+.price {
+  font-family: var(--font-heading);
+  font-size: 28px;
+  margin-block: 20px;
+}
+.price small {
+  display: inline;
+  font: 14px var(--font-body);
+}
+.kicker {
+  color: var(--color-accent-700);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-size: 12px;
+  font-weight: 700;
+}
+.court-art {
+  height: 220px;
+  border-radius: var(--radius-md);
+  background: linear-gradient(135deg, var(--color-accent-200), var(--color-accent-2-200));
+  padding: 30px;
+  display: grid;
+  align-items: center;
+  margin-block: 30px;
+}
+.court-art > div {
+  height: 140px;
+  border: 2px solid var(--color-accent-700);
+  background: linear-gradient(
+    90deg,
+    transparent 49.5%,
+    var(--color-accent-700) 49.5%,
+    var(--color-accent-700) 50.5%,
+    transparent 50.5%
+  );
+  position: relative;
+}
+.court-art > div:after {
+  content: '';
+  position: absolute;
+  inset: 22% 0;
+  border-block: 1px solid var(--color-accent-700);
+}
+dl {
+  display: grid;
+  grid-template-columns: minmax(90px, 0.8fr) 1.2fr;
+  gap: 12px;
+  margin-block: 24px;
+}
+dt {
+  color: var(--color-neutral-700);
+}
+dd {
+  margin: 0;
+  overflow-wrap: anywhere;
+}
+.table-scroll {
+  overflow-x: auto;
+  min-width: 0;
+}
+table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+}
+th,
+td {
+  padding: 14px 12px;
+  border-bottom: 1px solid var(--color-divider);
+  vertical-align: middle;
+}
+th {
+  color: var(--color-neutral-700);
+  font-size: 13px;
+  white-space: nowrap;
+}
+td {
+  font-size: 14px;
+}
+td .actions {
+  margin: 0;
+  flex-wrap: nowrap;
+}
+table .btn {
+  font-size: 13px;
+  padding: 8px 12px;
+}
+.tag {
+  background: var(--color-accent-100);
+  color: var(--color-accent-700);
+  white-space: nowrap;
+}
+@media (max-width: 650px) {
+  .stats {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+  }
+  .stats strong {
+    font-size: 23px;
+  }
+  .stats .card {
+    padding: 18px;
+  }
+  .card {
+    padding: 20px;
+  }
+}

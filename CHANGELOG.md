@@ -24,11 +24,21 @@ O formato segue o [Keep a Changelog](https://keepachangelog.com/pt-BR/1.1.0/) e 
 
 ### Alterado
 
+- Pastas organizadas por domínio ([ADR-0010](docs/adr/0010-organizacao-das-pastas-por-dominio.md)): cada
+  tela fica em `src/features/<domínio>/` com o componente (`.ts`), o template (`.html`), os estilos (`.css`)
+  e a lógica juntos; o compartilhado fica em `src/shared/`, a casca em `src/app/` e o núcleo em
+  `src/core/`. O `app.css` global foi dividido entre as telas e `src/shared/styles/global.css`, sem mudança
+  visual.
 - Identidade visual da Ottawa Tech (design v2, 28/09/2026): tema escuro com ciano `#1fb4f5` e violeta
   `#7a5cff`, botão primário em degradê, fontes Sora e Figtree hospedadas localmente, símbolo "OT" no
   cabeçalho e favicon da Ottawa Tech.
 - Textos mais diretos, sem jargão técnico: removidas as dicas de endpoint, a tag de rota nos títulos e a
   tag "MVP — Sprint 1 a 6"; avisos de quadra indisponível e de cancelamento reescritos.
+
+### Removido
+
+- Testes do repositório (unitários, de componentes e E2E) e as configurações do Vitest e do Playwright: ficam
+  só na cópia local, ignorados pelo Git ([ADR-0011](docs/adr/0011-testes-fora-do-repositorio.md)).
 
 ## [1.0.0] - 2026-09-25
 

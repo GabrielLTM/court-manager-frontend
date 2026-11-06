@@ -1,0 +1,63 @@
+<form novalidate (ngSubmit)="submit()" [attr.aria-label]="label" class="editor">
+  @if (formError()) {
+    <p role="alert" class="field-error">{{ formError() }}</p>
+  }
+  @for (field of fields; track field.key) {
+    <div class="field">
+      <label [for]="prefix + field.key">{{ field.label }}</label>
+      @if (field.options) {
+        <select
+          [id]="prefix + field.key"
+          [name]="field.key"
+          [value]="values[field.key]"
+          (change)="update(field.key, $any($event.target).value)"
+          [disabled]="busy"
+          [attr.aria-invalid]="!!errors()[field.key]"
+          [attr.aria-describedby]="errors()[field.key] ? prefix + field.key + '-error' : null"
+        >
+          @for (opt of field.options; track opt.value) {
+            <option [value]="opt.value" [selected]="values[field.key] === opt.value">
+              {{ opt.label }}
+            </option>
+          }
+        </select>
+      } @else {
+        <div class="input-row">
+          <input
+            [id]="prefix + field.key"
+            [name]="field.key"
+            [type]="field.type === 'password' && reveal() ? 'text' : field.type || 'text'"
+            [value]="values[field.key]"
+            (input)="update(field.key, $any($event.target).value)"
+            [autocomplete]="field.autocomplete || 'off'"
+            [placeholder]="field.placeholder || ''"
+            [disabled]="busy"
+            [attr.aria-invalid]="!!errors()[field.key]"
+            [attr.aria-describedby]="errors()[field.key] ? prefix + field.key + '-error' : null"
+          />
+          @if (field.type === 'password') {
+            <button
+              class="btn"
+              type="button"
+              [attr.aria-label]="reveal() ? 'Ocultar senha' : 'Mostrar senha'"
+              [attr.aria-pressed]="reveal()"
+              (click)="reveal.set(!reveal())"
+            >
+              {{ reveal() ? 'Ocultar' : 'Mostrar' }}
+            </button>
+          }
+        </div>
+      }
+      @if (errors()[field.key]) {
+        <p class="field-error" [id]="prefix + field.key + '-error'">{{ errors()[field.key] }}</p>
+      }
+    </div>
+  }
+  <div class="actions">
+    <button type="button" class="btn" [disabled]="busy" (click)="reset()">
+      Descartar alterações</button
+    ><button class="btn btn-primary" type="submit" [disabled]="busy" [attr.aria-busy]="busy">
+      {{ busy ? 'Salvando…' : submitLabel }}
+    </button>
+  </div>
+</form>

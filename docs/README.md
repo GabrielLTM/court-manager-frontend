@@ -14,7 +14,7 @@ Mapa da documentação do frontend da Arena Beach Tennis. Se for a primeira vez 
 | Saber por que uma decisão técnica foi tomada | [Registros de decisão (ADRs)](adr/README.md) |
 | Implementar o backend ou integrar com ele | [Contrato da API](api-contract.md) |
 | Mexer em cores, fontes ou componentes visuais | [Design system](design-system.md) |
-| Escrever ou rodar testes | [Estratégia de testes](testing.md) |
+| Rodar os testes locais | [Testes](testing.md) |
 | Contribuir com código | [Guia de contribuição](../CONTRIBUTING.md) |
 | Ver o que mudou entre versões | [Changelog](../CHANGELOG.md) |
 
@@ -40,7 +40,7 @@ Mapa da documentação do frontend da Arena Beach Tennis. Se for a primeira vez 
 | [architecture.md](architecture.md) | Camadas e regra de dependência, injeção de dependência, estado, rotas, erros, autenticação e guia para criar funcionalidades |
 | [adr/README.md](adr/README.md) | Registros das decisões de arquitetura, com contexto, decisão e consequências |
 | [design-system.md](design-system.md) | Paleta, tipografia, tokens, componentes e acessibilidade |
-| [testing.md](testing.md) | Pirâmide de testes, como executar, convenções e auxiliares |
+| [testing.md](testing.md) | Testes mantidos só na cópia local e como rodá-los |
 
 ### Referência
 
@@ -68,8 +68,8 @@ Estes documentos orientaram o desenvolvimento, mas **não fazem parte do reposit
 
 ## Mantendo a documentação em dia
 
-A documentação muda no mesmo pull request que o código. A tabela "Documentação" do
-[guia de contribuição](../CONTRIBUTING.md#documentação) diz qual documento atualizar para cada tipo de mudança.
+A documentação muda no mesmo pull request que o código. O [guia de contribuição](../CONTRIBUTING.md#validação-antes-do-push) pede que docs e ADRs mudem junto
+com o código.
 Decisões de arquitetura novas viram um [ADR](adr/README.md); ADRs aceitos não são reescritos.
 
 ## Migração Angular

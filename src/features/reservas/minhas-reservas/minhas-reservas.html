@@ -1,0 +1,95 @@
+<h1>Minhas reservas</h1>
+<div class="stats">
+  <article class="card">
+    <p>Próximas reservas</p>
+    <strong>{{ stats.proximasReservas }}</strong>
+  </article>
+  <article class="card">
+    <p>Pagamentos pendentes</p>
+    <strong>{{ stats.pagamentosPendentes }}</strong>
+  </article>
+  <article class="card">
+    <p>Horas jogadas no mês</p>
+    <strong>{{ hours(stats.minutosJogadosNoMes) }}</strong>
+  </article>
+</div>
+@if (loading()) {
+  <p role="status">Carregando reservas…</p>
+}
+@if (error()) {
+  <p role="alert">{{ error() }}</p>
+  <button class="btn" (click)="load()">Tentar novamente</button>
+}
+<section class="card">
+  <div class="table-scroll">
+    <table>
+      <caption class="sr-only">
+        Minhas reservas
+      </caption>
+      <thead>
+        <tr>
+          <th>Reserva</th>
+          <th>Data</th>
+          <th>Quadra</th>
+          <th>Horário</th>
+          <th>Valor</th>
+          <th>Status</th>
+          <th>Pagamento</th>
+          <th>Ações</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (r of ordered.slice((page - 1) * 8, page * 8); track r.id) {
+          <tr>
+            <td>{{ code(r.id) }}</td>
+            <td>{{ date(r.data) }}</td>
+            <td>{{ r.quadra?.nome || '—' }}</td>
+            <td>{{ r.horaInicio }}–{{ r.horaFim }}</td>
+            <td>{{ money(r.valor) }}</td>
+            <td>
+              <span class="tag">{{ reserveLabels[effective(r, now())] }}</span>
+            </td>
+            <td>
+              {{ r.pagamento ? paymentLabels[r.pagamento.status] : 'Sem pagamento'
+              }}<small>{{ r.pagamento ? methodLabels[r.pagamento.metodo] : '' }}</small>
+            </td>
+            <td>
+              <div class="actions">
+                @if (canPay(r)) {
+                  <button class="btn" (click)="paying.set(r)">Pagar</button>
+                }
+                @if (canCancel(r)) {
+                  <button class="btn" [disabled]="busy()" (click)="cancel(r)">Cancelar</button>
+                }
+              </div>
+            </td>
+          </tr>
+        } @empty {
+          <tr>
+            <td colspan="8">Você ainda não tem reservas. Escolha uma quadra para começar.</td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  </div>
+  <arena-pagination [page]="page" [total]="ordered.length" (changed)="page = $event" />
+</section>
+@if (paying(); as r) {
+  <arena-dialog [title]="'Pagar reserva ' + code(r.id)" [busy]="busy()" (closed)="paying.set(null)"
+    ><p>{{ r.quadra?.nome }} · {{ date(r.data) }} · {{ r.horaInicio }}–{{ r.horaFim }}</p>
+    <p class="price">{{ money(r.valor) }}</p>
+    <label for="pay-method">Método de pagamento</label
+    ><select id="pay-method" [(ngModel)]="method" [disabled]="busy()">
+      @for (m of methods; track m) {
+        <option [ngValue]="m">{{ methodLabels[m] }}</option>
+      }
+    </select>
+    <p>{{ help(method) }}</p>
+    <div class="actions">
+      <button autofocus class="btn" [disabled]="busy()" (click)="paying.set(null)">Voltar</button
+      ><button class="btn btn-primary" [disabled]="busy()" (click)="pay()">
+        {{ busy() ? 'Pagando…' : 'Confirmar pagamento' }}
+      </button>
+    </div></arena-dialog
+  >
+}

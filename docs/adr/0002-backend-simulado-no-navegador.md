@@ -12,14 +12,14 @@ A especificação também define limites que o frontend deve respeitar: ele nunc
 
 ## Decisão
 
-Implementar as mesmas **portas** de `application/ports` em dois adaptadores intercambiáveis, escolhidos no composition root por `VITE_API_MODE` (`mock`, o padrão, ou `http`):
+Implementar as mesmas **portas** de `core/application/ports` em dois adaptadores intercambiáveis, escolhidos no composition root por `VITE_API_MODE` (`mock`, o padrão, ou `http`):
 
-1. **`infrastructure/mock`**: backend simulado em processo, atrás das portas.
+1. **`core/infrastructure/mock`**: backend simulado em processo, atrás das portas.
    - Persiste em `localStorage` (chave `arena.mock-db.v1`), com transações atômicas sobre uma cópia e releitura do armazenamento a cada operação.
    - Simula latência de 150 a 400 ms e cria uma semente de demonstração relativa a hoje.
    - Autoriza por perfil com um JWT simulado (assinatura FNV-1a com segredo local, validade de 8 h): `AppError` 401 e 403.
    - Revalida as regras como "servidor" (`validarAgendamento`, que usa `validarReserva`) e calcula o valor (RN07), lançando `AppError` (401, 403, 404, 409) e `DomainError` (validações e regras).
-2. **`infrastructure/http`**: adaptadores axios que implementam o contrato REST, com `Authorization: Bearer`, tradução de falhas em `AppError` (`mapearErroHttp`) e mapeadores tolerantes (chaves sem diferenciar caixa, enums por número ou nome, `TimeOnly` como `19:00:00`).
+2. **`core/infrastructure/http`**: adaptadores axios que implementam o contrato REST, com `Authorization: Bearer`, tradução de falhas em `AppError` (`mapearErroHttp`) e mapeadores tolerantes (chaves sem diferenciar caixa, enums por número ou nome, `TimeOnly` como `19:00:00`).
 
 O contrato de referência é o [api-contract.md](../api-contract.md); em caso de dúvida, o comportamento do mock é o esperado. Em desenvolvimento, o proxy do Vite repassa `/api` para `VITE_BACKEND_URL` (padrão `http://localhost:5160`).
 
@@ -36,8 +36,8 @@ O contrato de referência é o [api-contract.md](../api-contract.md); em caso de
 
 - O mock não é um servidor: os dados ficam por navegador, sem multiusuário nem concorrência reais. O segredo do JWT simulado está no código do cliente; o token só detecta edição manual e não é segurança.
 - Há risco de divergência entre o mock e o backend real. O contrato, a leitura tolerante e as regras compartilhadas reduzem o risco, mas o backend precisa reimplementar as regras (seção 6.3 da especificação).
-- O mock reutiliza `domain/rules` e validações da aplicação, então não é um oráculo independente.
-- No modo mock, `infrastructure/http` não é exercitado em tempo de execução: há testes do cliente axios e dos mapeadores, mas não de requisições dos `Http*Repository` nem contra uma API real.
+- O mock reutiliza `core/domain/rules` e validações da aplicação, então não é um oráculo independente.
+- No modo mock, `core/infrastructure/http` não é exercitado em tempo de execução: há testes do cliente axios e dos mapeadores, mas não de requisições dos `Http*Repository` nem contra uma API real.
 - `container.ts` importa os dois adaptadores de forma estática; ambos fazem parte do bundle e o modo é decidido em tempo de execução.
 - Mapeadores tolerantes ampliam o código e podem mascarar desvios do contrato.
 - Contas de demonstração, `DemoRoleSwitch` e `AcessoRapido` só existem no modo mock, que não deve ser usado em produção.
@@ -50,10 +50,10 @@ O contrato de referência é o [api-contract.md](../api-contract.md); em caso de
 
 ## Referências
 
-- [`container.ts`](../../src/di/container.ts) e [`env.ts`](../../src/config/env.ts): escolha do backend.
-- [`backend.ts`](../../src/infrastructure/backend.ts): tipo comum aos dois adaptadores.
-- [`createMockBackend.ts`](../../src/infrastructure/mock/createMockBackend.ts), [`banco.ts`](../../src/infrastructure/mock/banco.ts), [`autorizacao.ts`](../../src/infrastructure/mock/autorizacao.ts) e [`token.ts`](../../src/infrastructure/mock/token.ts).
-- [`createHttpBackend.ts`](../../src/infrastructure/http/createHttpBackend.ts) e [`erros.ts`](../../src/infrastructure/http/erros.ts).
-- [`vite.config.ts`](../../vite.config.ts): proxy `/api`.
+- [`container.ts`](../../src/core/di/container.ts) e [`env.ts`](../../src/config/env.ts): escolha do backend.
+- [`backend.ts`](../../src/core/infrastructure/backend.ts): tipo comum aos dois adaptadores.
+- [`createMockBackend.ts`](../../src/core/infrastructure/mock/createMockBackend.ts), [`banco.ts`](../../src/core/infrastructure/mock/banco.ts), [`autorizacao.ts`](../../src/core/infrastructure/mock/autorizacao.ts) e [`token.ts`](../../src/core/infrastructure/mock/token.ts).
+- [`createHttpBackend.ts`](../../src/core/infrastructure/http/createHttpBackend.ts) e [`erros.ts`](../../src/core/infrastructure/http/erros.ts).
+- `vite.config.ts`: proxy `/api`.
 - [`api-contract.md`](../api-contract.md), [`architecture.md`](../architecture.md) (seção 9) e [`getting-started.md`](../getting-started.md).
 - [ADR-0001](0001-arquitetura-limpa-em-camadas.md) e [ADR-0008](0008-contrato-de-dados-enums-numericos-e-datas-iso.md).

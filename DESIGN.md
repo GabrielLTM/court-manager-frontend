@@ -32,7 +32,7 @@ Aplicação operacional para clientes reservarem quadras e administradores acomp
 
 ## Colors
 
-O arquivo canônico é `src/presentation/styles/design-system.css` (modelo B: tokens existentes). Este documento espelha os valores; não gera uma segunda folha de tema. `background → --color-bg`, `surface → --color-surface`, `text → --color-text`, `primary → --color-accent`, `secondary → --color-accent-2`. Rampas completas, sombras e gradiente ficam nesse mesmo arquivo. `angular/app.css` consome os tokens e centraliza adaptações de componentes. Erro/perigo usa texto e borda rosa, sempre acompanhado por mensagem ou verbo explícito; status nunca depende apenas de cor.
+O arquivo canônico é `src/shared/styles/design-system.css` (modelo B: tokens existentes). Este documento espelha os valores; não gera uma segunda folha de tema. `background → --color-bg`, `surface → --color-surface`, `text → --color-text`, `primary → --color-accent`, `secondary → --color-accent-2`. Rampas completas, sombras e gradiente ficam nesse mesmo arquivo. `src/shared/styles/global.css` consome os tokens nas classes usadas por várias telas; o `.css` de cada componente (por exemplo, `src/features/quadras/quadras.css`) guarda o que é só dele. Erro/perigo usa texto e borda rosa, sempre acompanhado por mensagem ou verbo explícito; status nunca depende apenas de cor.
 
 ## Typography
 
@@ -52,7 +52,7 @@ Campos usam raio de 8px, superfícies de 28px, botões em pílula. O desenho de 
 
 ## Components
 
-`EditorComponent`, `DialogComponent` e `PaginationComponent` em `src/presentation/angular/shared.ts` são os proprietários de comportamento. Classes `.btn`, `.card`, `.tag` e campos nativos compartilham o estilo global. `AppState` é proprietário de notificações e confirmações. Select e date nativos aceitam popup e interação do navegador; não prometemos geometria ou calendário desenhado pela aplicação. A faixa de sete dias do agendamento oferece escolha rápida em pt-BR.
+`EditorComponent`, `DialogComponent` e `PaginationComponent` em `src/shared/ui/` são os proprietários de comportamento. Classes `.btn`, `.card`, `.tag` e campos nativos compartilham o estilo global. `AppState` é proprietário de notificações e confirmações. Select e date nativos aceitam popup e interação do navegador; não prometemos geometria ou calendário desenhado pela aplicação. A faixa de sete dias do agendamento oferece escolha rápida em pt-BR.
 
 ## Do's and Don'ts
 

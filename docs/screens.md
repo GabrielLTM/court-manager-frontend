@@ -1,19 +1,19 @@
 # Telas e fluxos
 
-Todas as rotas são componentes Angular standalone em `src/presentation/angular/`. O tema e os fluxos permanecem compartilhados entre cliente e administrador. Capturas desta pasta anteriores à migração não são referência da implementação atual; veja o relatório de migração e a evidência E2E.
+Todas as rotas são componentes Angular standalone, um por pasta de domínio em `src/features/` (cada um com `.ts`, `.html` e, quando precisa, `.css`). O tema e os fluxos permanecem compartilhados entre cliente e administrador. Capturas desta pasta anteriores à migração não são referência da implementação atual; veja o relatório de migração e a evidência E2E.
 
 | Tela | Componente | Comportamento |
 | --- | --- | --- |
-| Entrar / Criar conta | `auth.component.ts` | Validação, contas demo no mock, cadastro com login, origem segura após autenticação |
-| Reservar quadra | `booking.component.ts` | Data (faixa e campo), quadra, duração, slots com motivos, resumo e confirmação de pagamento |
-| Minhas reservas | `reservations.component.ts` | Estatísticas, histórico ordenado, pagamento de reserva sem pagamento, cancelamento permitido e consequência financeira |
-| Meus dados | `profile.component.ts` | Cadastro preenchido, senha opcional, reset, salvar e sincronizar sessão |
-| Dashboard | `dashboard.component.ts` | Data, indicadores, ocupação e reservas recentes |
-| Grade | `grade.component.ts` | Grade diária, legenda, detalhe, alteração com disponibilidade sem a própria reserva, cancelamento administrativo |
-| Quadras | `courts.component.ts` | Criar, editar, preço por hora, tipo e status |
-| Clientes | `clients.component.ts` | Criar, editar, buscar por nome/CPF/e-mail, filtrar, paginar, inativar/reativar com histórico |
-| Pagamentos | `payments.component.ts` | Totais, filtros, paginação, confirmar dinheiro e consultar recibo |
-| 404 | `not-found.component.ts` | Mensagem e retorno à home |
+| Entrar / Criar conta | `features/auth/auth.ts` | Validação, contas demo no mock, cadastro com login, origem segura após autenticação |
+| Reservar quadra | `features/reservas/reservar/reservar.ts` | Data (faixa e campo), quadra, duração, slots com motivos, resumo e confirmação de pagamento |
+| Minhas reservas | `features/reservas/minhas-reservas/minhas-reservas.ts` | Estatísticas, histórico ordenado, pagamento de reserva sem pagamento, cancelamento permitido e consequência financeira |
+| Meus dados | `features/clientes/meus-dados.ts` | Cadastro preenchido, senha opcional, reset, salvar e sincronizar sessão |
+| Dashboard | `features/dashboard/dashboard.ts` | Data, indicadores, ocupação e reservas recentes |
+| Grade | `features/reservas/grade/grade.ts` | Grade diária, legenda, detalhe, alteração com disponibilidade sem a própria reserva, cancelamento administrativo |
+| Quadras | `features/quadras/quadras.ts` | Criar, editar, preço por hora, tipo e status |
+| Clientes | `features/clientes/clientes.ts` | Criar, editar, buscar por nome/CPF/e-mail, filtrar, paginar, inativar/reativar com histórico |
+| Pagamentos | `features/pagamentos/pagamentos.ts` | Totais, filtros, paginação, confirmar dinheiro e consultar recibo |
+| 404 | `app/not-found.ts` | Mensagem e retorno à home |
 
 ## Navegação e estados
 
@@ -29,7 +29,7 @@ Cabeçalho com identidade Ottawa Tech, sessão, sair e troca demo no mock. Menus
 6. Atualizar perfil e conferir nome no cabeçalho; sair e entrar novamente.
 7. Repetir o acesso e os formulários em 375px, navegar por teclado, abrir select e cancelar diálogos com Escape.
 
-As verificações automatizadas ficam em `e2e/migration.spec.ts` e `src/presentation/angular/__tests__`. Regras detalhadas: [business-rules.md](business-rules.md). Contrato visual/comportamental: [DESIGN.md](../DESIGN.md) e [UX-CONTRACT.md](../UX-CONTRACT.md).
+Regras detalhadas: [business-rules.md](business-rules.md). Contrato visual/comportamental: [DESIGN.md](../DESIGN.md) e [UX-CONTRACT.md](../UX-CONTRACT.md).
 
 ## Capturas da aplicação Angular
 

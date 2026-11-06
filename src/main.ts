@@ -1,11 +1,11 @@
 import { ErrorHandler } from '@angular/core';
-import { AppErrorHandler } from './presentation/angular/error-handler';
+import { AppErrorHandler } from './app/error-handler';
 import { bootstrapApplication } from '@angular/platform-browser';
 import { provideRouter, withComponentInputBinding } from '@angular/router';
-import { AppComponent } from './presentation/angular/app.component';
-import { routes } from './presentation/angular/routes';
-import { APP_SERVICES } from './presentation/angular/state';
-import { createContainer } from './di/container';
+import { AppComponent } from './app/app';
+import { routes } from './app/app.routes';
+import { APP_SERVICES } from './app/app-state';
+import { createContainer } from './core/di/container';
 bootstrapApplication(AppComponent, {
   providers: [
     { provide: ErrorHandler, useClass: AppErrorHandler },

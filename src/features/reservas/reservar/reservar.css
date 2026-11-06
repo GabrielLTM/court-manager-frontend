@@ -1,0 +1,65 @@
+:host {
+  display: block;
+}
+.booking-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 320px;
+  gap: var(--space-6);
+  align-items: start;
+}
+.summary {
+  position: sticky;
+  top: 24px;
+}
+.options {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 10px;
+}
+.court-option {
+  display: grid;
+  gap: 4px;
+  border-radius: var(--radius-md);
+  padding: 18px;
+}
+.date-strip {
+  display: flex;
+  gap: 8px;
+  overflow: auto;
+  margin-block: 20px;
+  padding: 4px;
+}
+.date-strip .btn {
+  min-width: 65px;
+}
+.slots {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(75px, 1fr));
+  gap: 10px;
+  margin-block: 20px;
+}
+.steps h2 {
+  margin-bottom: 20px;
+}
+.summary .btn {
+  width: 100%;
+}
+.summary dl {
+  display: block;
+}
+.summary dd {
+  margin-bottom: 12px;
+}
+@media (max-width: 900px) {
+  .booking-layout {
+    grid-template-columns: 1fr 270px;
+  }
+}
+@media (max-width: 650px) {
+  .booking-layout {
+    grid-template-columns: 1fr;
+  }
+  .summary {
+    position: static;
+  }
+}

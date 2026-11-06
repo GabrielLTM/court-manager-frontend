@@ -17,9 +17,9 @@
             "outputPath": "dist/court-manager",
             "assets": [
               { "glob": "**/*", "input": "public" },
-              { "glob": "**/*", "input": "src/presentation/assets", "output": "assets" }
+              { "glob": "**/*", "input": "src/shared/assets", "output": "assets" }
             ],
-            "styles": ["src/presentation/styles/index.css", "src/presentation/angular/app.css"]
+            "styles": ["src/shared/styles/index.css", "src/shared/styles/global.css"]
           },
           "configurations": {
             "production": {

@@ -1,0 +1,46 @@
+.warning {
+  color: #ffd588;
+  background: #33270e;
+}
+.grade {
+  min-width: 650px;
+  table-layout: fixed;
+}
+.grade th:first-child {
+  width: 75px;
+}
+.grade td {
+  padding: 4px;
+}
+.grade-cell {
+  width: 100%;
+  min-height: 48px;
+  border: 1px solid var(--color-divider);
+  border-radius: 8px;
+  color: var(--color-neutral-700);
+  background: transparent;
+  cursor: pointer;
+  font: inherit;
+}
+.grade-cell.reserved {
+  background: var(--color-accent-100);
+  color: var(--color-accent-700);
+}
+.grade-cell.warning {
+  background: #33270e;
+  color: #ffd588;
+}
+.grade-cell.unavailable {
+  background: repeating-linear-gradient(
+    135deg,
+    transparent,
+    transparent 5px,
+    var(--color-neutral-200) 5px,
+    var(--color-neutral-200) 6px
+  );
+}
+.legend {
+  margin-bottom: 20px;
+  gap: 20px;
+  font-size: 13px;
+}

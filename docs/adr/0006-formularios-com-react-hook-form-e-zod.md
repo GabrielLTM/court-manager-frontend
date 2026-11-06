@@ -12,7 +12,7 @@ A Especificação 1.0 (seção 6.1) lista as validações de interface (campos o
 
 ## Decisão
 
-- Usar **React Hook Form** (`useForm`, `FormProvider` e `useFormContext`) com esquemas **Zod** definidos em `presentation/validation/schemas.ts`, ligados por `@hookform/resolvers/zod`. Os `<form>` usam `noValidate`, de modo que as mensagens, em português, vêm do Zod.
+- Usar **React Hook Form** (`useForm`, `FormProvider` e `useFormContext`) com esquemas **Zod** definidos em `features/clientes/clientes.schemas.ts`, ligados por `@hookform/resolvers/zod`. Os `<form>` usam `noValidate`, de modo que as mensagens, em português, vêm do Zod.
 - Reutilizar os predicados do domínio (`cpfValido`, `emailValido` e `telefoneValido`) dentro de `refine`.
 - Compartilhar os campos do cliente em `ClienteFields`, parametrizado por `senha` (`obrigatoria`, `opcional` ou `oculta`) e `incluirStatus`. As máscaras (`maskCpf` e `maskTelefone`) entram via `Controller`; os demais campos usam `register`.
 - Tratar os valores de formulário como **strings** (por exemplo, `status` é `z.enum(['1', '2'])` e `valorHora` é texto) e converter para DTOs em funções puras dos `*.utils.ts` (`formParaNovoCliente` e `formParaAtualizarCliente`).
@@ -45,10 +45,10 @@ A Especificação 1.0 (seção 6.1) lista as validações de interface (campos o
 
 ## Referências
 
-- [`schemas.ts`](../../src/presentation/validation/schemas.ts) e [`ClienteFields.tsx`](https://github.com/GabrielLTM/court-manager-frontend/blob/39f9d0ed4abfb254643f84f6868e9666649f31b3/src/presentation/components/forms/ClienteFields.tsx).
-- [`serverErrors.ts`](https://github.com/GabrielLTM/court-manager-frontend/blob/39f9d0ed4abfb254643f84f6868e9666649f31b3/src/presentation/lib/serverErrors.ts) e [`errors.ts`](../../src/presentation/lib/errors.ts).
+- [`schemas.ts`](../../src/features/clientes/clientes.schemas.ts) e [`ClienteFields.tsx`](https://github.com/GabrielLTM/court-manager-frontend/blob/39f9d0ed4abfb254643f84f6868e9666649f31b3/src/presentation/components/forms/ClienteFields.tsx).
+- [`serverErrors.ts`](https://github.com/GabrielLTM/court-manager-frontend/blob/39f9d0ed4abfb254643f84f6868e9666649f31b3/src/presentation/lib/serverErrors.ts) e [`errors.ts`](../../src/shared/ui/errors.ts).
 - [`CadastroForm.tsx`](https://github.com/GabrielLTM/court-manager-frontend/blob/39f9d0ed4abfb254643f84f6868e9666649f31b3/src/presentation/features/auth/CadastroForm.tsx) e [`ClienteFormDialog.tsx`](https://github.com/GabrielLTM/court-manager-frontend/blob/39f9d0ed4abfb254643f84f6868e9666649f31b3/src/presentation/features/admin/clientes/components/ClienteFormDialog.tsx).
-- [`validarDadosCliente.ts`](../../src/application/use-cases/validarDadosCliente.ts) e [`masks.ts`](../../src/shared/lib/masks.ts).
+- [`validarDadosCliente.ts`](../../src/core/application/use-cases/validarDadosCliente.ts) e [`masks.ts`](../../src/shared/lib/masks.ts).
 - [`architecture.md`](../architecture.md) (seção 7) e [`screens.md`](../screens.md).
 - [ADR-0004](0004-regras-de-negocio-no-dominio.md).
 

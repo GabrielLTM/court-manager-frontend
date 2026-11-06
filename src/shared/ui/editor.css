@@ -1,0 +1,22 @@
+:host {
+  display: block;
+}
+.field {
+  display: grid;
+  gap: 6px;
+}
+.editor {
+  display: grid;
+  gap: var(--space-4);
+}
+.input-row {
+  display: flex;
+  gap: 8px;
+}
+.input-row input {
+  width: 100%;
+  min-width: 0;
+}
+.input-row .btn {
+  flex-shrink: 0;
+}

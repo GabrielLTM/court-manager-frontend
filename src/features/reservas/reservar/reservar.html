@@ -1,0 +1,155 @@
+@if (!reservation) {
+  <h1>Reservar quadra</h1>
+}
+@if (loading()) {
+  <p role="status">Carregando quadras…</p>
+}
+@if (error()) {
+  <p role="alert">{{ error() }}</p>
+  <button class="btn" (click)="load()">Tentar novamente</button>
+}
+<div class="booking-layout">
+  <div class="steps">
+    <section class="card">
+      <h2>1. Data</h2>
+      <div class="date-strip">
+        @for (day of days; track day) {
+          <button
+            class="btn"
+            [class.selected]="date === day"
+            [attr.aria-pressed]="date === day"
+            (click)="date = day; refresh()"
+          >
+            {{ weekday(day) }}<br />{{ shortDate(day) }}
+          </button>
+        }
+      </div>
+      <label for="booking-date">Escolher outra data</label
+      ><input
+        id="booking-date"
+        type="date"
+        [(ngModel)]="date"
+        [min]="today"
+        [max]="lastDay"
+        (ngModelChange)="refresh()"
+      /><small>Reservas até 30 dias à frente</small>
+    </section>
+    <section class="card">
+      <h2>2. Quadra</h2>
+      <div class="options">
+        @for (q of courts(); track q.id) {
+          <button
+            class="btn court-option"
+            [class.selected]="courtId === q.id"
+            [attr.aria-pressed]="courtId === q.id"
+            [attr.aria-disabled]="q.status !== 1"
+            (click)="chooseCourt(q)"
+          >
+            <strong>{{ q.nome }}</strong
+            ><span>{{ q.tipo }}</span
+            ><small>{{ courtLabels[q.status] }}</small>
+          </button>
+        } @empty {
+          <p>Nenhuma quadra cadastrada.</p>
+        }
+      </div>
+    </section>
+    <section class="card">
+      <h2>3. Duração</h2>
+      <div class="actions">
+        @for (d of durations; track d) {
+          <button
+            class="btn"
+            [class.selected]="duration === d"
+            [attr.aria-pressed]="duration === d"
+            (click)="duration = d; hour = null"
+          >
+            {{ formatDuration(d) }}
+          </button>
+        }
+      </div>
+    </section>
+    <section class="card">
+      <h2>4. Horários disponíveis</h2>
+      @if (availabilityLoading()) {
+        <p role="status">Consultando disponibilidade…</p>
+      } @else if (availabilityError()) {
+        <p role="alert">{{ availabilityError() }}</p>
+        <button class="btn" (click)="refresh()">Tentar novamente</button>
+      } @else {
+        <div class="slots">
+          @for (slot of slots; track slot.hora) {
+            <button
+              class="btn"
+              [class.selected]="hour === slot.hora && slot.disponivel"
+              [attr.aria-pressed]="hour === slot.hora && slot.disponivel"
+              [attr.aria-disabled]="!slot.disponivel"
+              [title]="
+                slot.disponivel ? slot.hora + '–' + slot.fim : reasons[slot.motivo || 'ocupado']
+              "
+              (click)="chooseHour(slot.hora, slot.disponivel, slot.motivo)"
+            >
+              {{ slot.hora }}
+            </button>
+          } @empty {
+            <p>Selecione uma quadra e uma data para consultar os horários.</p>
+          }
+        </div>
+        <small>Horários indisponíveis aparecem desativados.</small>
+      }
+    </section>
+  </div>
+  <aside class="card summary">
+    @if (submissionError()) {
+      <p role="alert" class="field-error">{{ submissionError() }}</p>
+    }
+    <p class="kicker">{{ court?.nome || 'Sua partida' }}</p>
+    <h2>Resumo da reserva</h2>
+    <dl>
+      @for (line of summary; track line.label) {
+        <dt>{{ line.label }}</dt>
+        <dd>{{ line.value }}</dd>
+      }
+    </dl>
+    <p class="price">{{ total }}</p>
+    <button
+      class="btn btn-primary"
+      [disabled]="!valid || busy() || availabilityLoading() || !changed"
+      (click)="confirming.set(true)"
+    >
+      {{ reservation ? 'Salvar alteração' : 'Confirmar reserva' }}
+    </button>
+  </aside>
+</div>
+@if (confirming()) {
+  <arena-dialog
+    [title]="reservation ? 'Alterar reserva' : 'Confirmar reserva'"
+    [busy]="busy()"
+    (closed)="confirming.set(false)"
+    ><p>{{ court?.nome }} · {{ shortDate(date) }} · {{ hour }} · {{ formatDuration(duration) }}</p>
+    <p class="price">{{ total }}</p>
+    @if (!reservation) {
+      <label for="booking-method">Método de pagamento</label
+      ><select id="booking-method" [(ngModel)]="method" [disabled]="busy()">
+        @for (m of methods; track m) {
+          <option [ngValue]="m">{{ methodLabels[m] }}</option>
+        }
+      </select>
+      <p>{{ help(method) }}</p>
+    } @else {
+      <p>A alteração será validada novamente para evitar conflitos de horário.</p>
+    }
+    <div class="actions">
+      <button autofocus class="btn" [disabled]="busy()" (click)="confirming.set(false)">
+        Voltar</button
+      ><button
+        class="btn btn-primary"
+        [disabled]="busy()"
+        [attr.aria-busy]="busy()"
+        (click)="confirm()"
+      >
+        {{ busy() ? 'Salvando…' : reservation ? 'Salvar alteração' : 'Confirmar e pagar' }}
+      </button>
+    </div></arena-dialog
+  >
+}

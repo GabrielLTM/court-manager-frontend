@@ -43,9 +43,9 @@ A interface React precisa de componentes reutilizáveis (`Button`, `Card`, `Dial
 
 ## Referências
 
-- [`design-system.css`](../../src/presentation/styles/design-system.css) e [`index.css`](../../src/presentation/styles/index.css).
+- [`design-system.css`](../../src/shared/styles/design-system.css) e [`index.css`](../../src/shared/styles/index.css).
 - [`Button.tsx`](https://github.com/GabrielLTM/court-manager-frontend/blob/39f9d0ed4abfb254643f84f6868e9666649f31b3/src/presentation/components/ui/Button.tsx), [`Button.module.css`](https://github.com/GabrielLTM/court-manager-frontend/blob/39f9d0ed4abfb254643f84f6868e9666649f31b3/src/presentation/components/ui/Button.module.css) e [`Card.tsx`](https://github.com/GabrielLTM/court-manager-frontend/blob/39f9d0ed4abfb254643f84f6868e9666649f31b3/src/presentation/components/ui/Card.tsx).
-- [`main.tsx`](https://github.com/GabrielLTM/court-manager-frontend/blob/39f9d0ed4abfb254643f84f6868e9666649f31b3/src/main.tsx) e [`vite.config.ts`](../../vite.config.ts) (`test.css`).
+- [`main.tsx`](https://github.com/GabrielLTM/court-manager-frontend/blob/39f9d0ed4abfb254643f84f6868e9666649f31b3/src/main.tsx) e `vite.config.ts` (`test.css`).
 - [`design-system.md`](../design-system.md) e [`architecture.md`](../architecture.md) (seção 10).
 - [ADR-0007](0007-identidade-visual-ottawa-tech.md).
 

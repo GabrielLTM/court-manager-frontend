@@ -47,12 +47,10 @@ Publique o conteúdo de **`dist/court-manager/browser`**. Configure fallback de 
 ```bash
 npm run lint
 npm run typecheck
-npm test
 npm run build
-npm run test:e2e
 ```
 
-Para E2E, Chromium deve estar em `/usr/bin/chromium` ou no caminho definido por `CHROMIUM_PATH`. As falhas incluem trace e screenshot em `test-results/`.
+Os testes ficam só na cópia local, fora do repositório; veja [testing.md](testing.md).
 
 ## Problemas comuns
 
@@ -64,4 +62,3 @@ Para E2E, Chromium deve estar em `/usr/bin/chromium` ou no caminho definido por 
 | Rotas retornam 404 em produção | Configurar fallback para `index.html` |
 | Configuração não mudou | Reiniciar o servidor ou refazer o build |
 | Dados de demonstração antigos | Remover as duas chaves do mock e recarregar |
-| Chromium ausente | Instalar um navegador suportado e definir `CHROMIUM_PATH` |

@@ -4,10 +4,12 @@ import globals from 'globals';
 import tseslint from 'typescript-eslint';
 
 /**
- * Regras de dependência da Arquitetura Limpa:
- *   domain  <-  application  <-  infrastructure / presentation  <-  di (composition root)
+ * Pastas: app (casca), features/<domínio> (telas), shared (UI e utilitários comuns) e core (núcleo).
+ * Regras de dependência da Arquitetura Limpa dentro de core/:
+ *   domain  <-  application  <-  infrastructure / interface (app, features, shared)  <-  di (composition root)
  * Camadas internas nunca importam camadas externas.
  */
+const INTERFACE = ['@/app/*', '@/features/*', '@/shared/ui/*'];
 const layer = (files, forbidden, message) => ({
   files,
   rules: {
@@ -35,23 +37,23 @@ export default defineConfig([
     },
   },
   layer(
-    ['src/domain/**'],
-    ['@/application/*', '@/infrastructure/*', '@/presentation/*', '@/di/*', '@angular/*', 'axios'],
+    ['src/core/domain/**'],
+    ['@/core/application/*', '@/core/infrastructure/*', '@/core/di/*', ...INTERFACE, '@angular/*', 'axios'],
     'A camada de domínio é pura: não pode depender de outras camadas nem de frameworks.',
   ),
   layer(
-    ['src/application/**'],
-    ['@/infrastructure/*', '@/presentation/*', '@/di/*', '@angular/*', 'axios'],
+    ['src/core/application/**'],
+    ['@/core/infrastructure/*', '@/core/di/*', ...INTERFACE, '@angular/*', 'axios'],
     'A camada de aplicação depende apenas do domínio (e de portas/abstrações).',
   ),
   layer(
-    ['src/infrastructure/**'],
-    ['@/presentation/*', '@/di/*', '@angular/*'],
+    ['src/core/infrastructure/**'],
+    ['@/core/di/*', ...INTERFACE, '@angular/*'],
     'A infraestrutura implementa portas da aplicação e não conhece a UI.',
   ),
   layer(
-    ['src/presentation/**'],
-    ['@/infrastructure/*', 'axios'],
-    'A apresentação conversa com a aplicação via AppServices (injeção de dependência), nunca com a infraestrutura.',
+    ['src/app/**', 'src/features/**', 'src/shared/**'],
+    ['@/core/infrastructure/*', '@/core/di/*', 'axios'],
+    'A interface conversa com o núcleo via AppServices (injeção de dependência), nunca com a infraestrutura.',
   ),
 ]);

@@ -15,7 +15,7 @@ No frontend, `tsconfig.app.json` ativa `erasableSyntaxOnly`, que não admite o `
 1. **Enums** como objetos `as const` mais um tipo união com o mesmo nome (`StatusCliente`, `StatusQuadra`, `StatusReserva`, `StatusPagamento` e `MetodoPagamento`), com valores numéricos **idênticos** aos enums C#. Por exemplo, `StatusReserva = { Pendente: 1, Confirmada: 2, Cancelada: 3, Concluida: 4 }`. Cada enum tem rótulos (`*_LABEL`) e a lista de valores (`*_VALUES`). `Perfil` é texto (`'Cliente'` ou `'Administrador'`, a claim `role`). No fio, os enums trafegam como números.
 2. **Datas e horários** como strings: `DateOnly` vira `"YYYY-MM-DD"` e `TimeOnly` vira `"HH:mm"` no domínio. No fio, o frontend envia `"HH:mm:ss"` (`19:00:00`) e aceita `"HH:mm"` ou `"HH:mm:ss"`. Data-hora é string ISO 8601 (`dataCriacao`, `dataPagamento` e `expiraEm`). As entidades não usam `Date`, e as datas de calendário são interpretadas no fuso local (`shared/lib/date.ts`).
 3. **Dinheiro** como `number`. `valorHora` e `valor` seguem o `decimal` do backend; o cálculo arredonda a 2 casas (`calcularValorReserva`) e a exibição usa `formatBRL`. O `valor` da reserva é sempre calculado pelo servidor (RN07).
-4. **Normalização na borda**, em `infrastructure/http/mappers`:
+4. **Normalização na borda**, em `core/infrastructure/http/mappers`:
    - `campo()` lê chaves sem diferenciar caixa nem `_` e com apelidos (`clienteId`, `ClienteID`, `cliente_id`);
    - `criarLeitor` lê enums por número, texto numérico ou nome (sem acento e sem diferenciar caixa, com sinônimos como `Ativo` para `Ativa` em quadras) e também booleanos, dos modelos legados com `bool Status`;
    - `lerData` aceita `YYYY-MM-DD`, `DateTime` ISO e `dd/MM/yyyy`; `lerHora` aceita `HH:mm`, `HH:mm:ss`, `DateTime` e `{ hour, minute }`; `lerDataHora` trata `0001-01-01` como ausente e trunca frações com mais de 3 dígitos;
@@ -49,9 +49,9 @@ No frontend, `tsconfig.app.json` ativa `erasableSyntaxOnly`, que não admite o `
 
 ## Referências
 
-- [`enums/index.ts`](../../src/domain/enums/index.ts) e [`entities/index.ts`](../../src/domain/entities/index.ts).
+- [`enums/index.ts`](../../src/core/domain/enums/index.ts) e [`entities/index.ts`](../../src/core/domain/entities/index.ts).
 - [`date.ts`](../../src/shared/lib/date.ts) e [`time.ts`](../../src/shared/lib/time.ts).
-- [`dto.ts`](../../src/infrastructure/http/dto.ts), [`enums.ts`](../../src/infrastructure/http/mappers/enums.ts), [`leitura.ts`](../../src/infrastructure/http/mappers/leitura.ts), [`entidades.ts`](../../src/infrastructure/http/mappers/entidades.ts), [`requisicoes.ts`](../../src/infrastructure/http/mappers/requisicoes.ts) e [`sessao.ts`](../../src/infrastructure/http/mappers/sessao.ts).
-- [`mappers.test.ts`](../../src/infrastructure/http/__tests__/mappers.test.ts) e [`tsconfig.app.json`](../../tsconfig.app.json).
+- [`dto.ts`](../../src/core/infrastructure/http/dto.ts), [`enums.ts`](../../src/core/infrastructure/http/mappers/enums.ts), [`leitura.ts`](../../src/core/infrastructure/http/mappers/leitura.ts), [`entidades.ts`](../../src/core/infrastructure/http/mappers/entidades.ts), [`requisicoes.ts`](../../src/core/infrastructure/http/mappers/requisicoes.ts) e [`sessao.ts`](../../src/core/infrastructure/http/mappers/sessao.ts).
+- `mappers.test.ts` e [`tsconfig.app.json`](../../tsconfig.app.json).
 - [`api-contract.md`](../api-contract.md) (seções 1, 4 e 7) e [`architecture.md`](../architecture.md) (seção 9).
 - [ADR-0002](0002-backend-simulado-no-navegador.md).

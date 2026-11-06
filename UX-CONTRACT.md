@@ -6,10 +6,10 @@ Idioma pt-BR, moeda BRL, calendário gregoriano e datas interpretadas no fuso lo
 
 | Tema | Fonte |
 | --- | --- |
-| Permissão e perfis | `docs/business-rules.md`, `domain/enums`, casos de uso e autorização do mock |
-| Reserva, alteração, cancelamento | `docs/business-rules.md`, `domain/rules/reserva.rules.ts` |
-| Pagamento e estorno | `docs/api-contract.md`, `domain/rules/pagamento.rules.ts` |
-| Cadastro e unicidade | `domain/rules/cliente.rules.ts`, `application/use-cases` |
+| Permissão e perfis | `docs/business-rules.md`, `core/domain/enums`, casos de uso e autorização do mock |
+| Reserva, alteração, cancelamento | `docs/business-rules.md`, `core/domain/rules/reserva.rules.ts` |
+| Pagamento e estorno | `docs/api-contract.md`, `core/domain/rules/pagamento.rules.ts` |
+| Cadastro e unicidade | `core/domain/rules/cliente.rules.ts`, `core/application/use-cases` |
 | Persistência e API | `docs/adr/0002-backend-simulado-no-navegador.md`, `docs/api-contract.md` |
 
 O contrato descreve consequências de interface; as regras de negócio não são redefinidas aqui.
@@ -18,11 +18,11 @@ O contrato descreve consequências de interface; as regras de negócio não são
 
 | Capability | Canonical owner | Source of truth | Allowed variants | Verification |
 | --- | --- | --- | --- | --- |
-| Select/Listbox | EditorComponent e select nativo | DESIGN.md e shared.ts | native | TestBed e e2e/migration.spec.ts |
-| Date | Campos date nativos e BookingComponent | DESIGN.md e regras de reserva | native e faixa de dias | E2E de reserva e alteração |
-| Form | EditorComponent | validation/schemas.ts e shared.ts | cadastro, edição, login | editor.test.ts e E2E |
-| Scrollbar | angular/app.css | DESIGN.md e design-system.css | global e overflow horizontal de tabela | E2E de layout |
-| Toast | AppState e AppComponent | state.ts | informação e erro | E2E e testes Angular |
+| Select/Listbox | EditorComponent e select nativo | DESIGN.md e shared/ui/editor.ts | native | TestBed e e2e/migration.spec.ts |
+| Date | Campos date nativos e ReservarComponent | DESIGN.md e regras de reserva | native e faixa de dias | E2E de reserva e alteração |
+| Form | EditorComponent | *.schemas.ts e shared/ui/editor.ts | cadastro, edição, login | editor.test.ts e E2E |
+| Scrollbar | shared/styles/global.css | DESIGN.md e design-system.css | global e overflow horizontal de tabela | E2E de layout |
+| Toast | AppState e AppComponent | app/app-state.ts | informação e erro | E2E e testes Angular |
 | CRUD | Casos de uso e componentes Angular | contrato REST e regras de negócio | diálogo, perfil inline, reserva com navegação | E2E completo |
 
 Não há seleção em massa ou exclusão definitiva de registros. Select/date têm popups sob responsabilidade do navegador; datas continuam editáveis pelo teclado. Não se promete geometria própria para esses popups.

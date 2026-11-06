@@ -1,0 +1,21 @@
+.dashboard-layout {
+  display: grid;
+  grid-template-columns: 1fr 1.6fr;
+  gap: 24px;
+}
+.occupancy {
+  margin-block: 20px;
+}
+.occupancy .page-heading {
+  margin: 0;
+}
+.occupancy progress {
+  width: 100%;
+  accent-color: var(--color-accent);
+  height: 12px;
+}
+@media (max-width: 900px) {
+  .dashboard-layout {
+    grid-template-columns: 1fr;
+  }
+}

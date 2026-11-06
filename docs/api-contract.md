@@ -1,8 +1,8 @@
 # Contrato da API REST — Arena Beach Tennis (Ottawa Tech)
 
 Referência para a equipe do backend (ASP.NET Core). O frontend consome exatamente este contrato no
-modo `VITE_API_MODE=http` (adaptadores em `src/infrastructure/http`). O backend simulado
-(`src/infrastructure/mock`, modo `mock`) implementa as mesmas rotas e regras e serve como
+modo `VITE_API_MODE=http` (adaptadores em `src/core/infrastructure/http`). O backend simulado
+(`src/core/infrastructure/mock`, modo `mock`) implementa as mesmas rotas e regras e serve como
 **implementação de referência** — em caso de dúvida, o comportamento dele é o esperado.
 
 ## 1. Convenções
@@ -198,4 +198,4 @@ teste, sem `DbContext` nem endpoints do contrato. Confirme com a equipe do backe
 
 - [Regras de negócio e requisitos](business-rules.md) — o que cada regra (RN01–RN10) significa e onde é aplicada.
 - [Arquitetura](architecture.md) — como os adaptadores HTTP e o backend simulado se encaixam no frontend.
-- [Guia de instalação e execução](getting-started.md#usando-a-api-real) — como apontar o frontend para o backend real.
+- [Guia de instalação e execução](getting-started.md#api-real) — como apontar o frontend para o backend real.
